@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Morgan &amp; Morgan - Flujo de Datos y APIs (Arquitectura ML)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --mm-primary: #005fb8;
+            --mm-primary-soft: #e6f0fb;
+            --mm-secondary: #107c10;
+            --mm-danger: #d13438;
+            --mm-bg: #f4f6fb;
+            --mm-gray-700: #323130;
+            --mm-gray-text: #4b5563;
+            --mm-border: rgba(148, 163, 184, 0.45);
+            --mm-icon-size: 34px;
+            --mm-text-sm: 0.8rem;
+            --mm-text-xs: 0.72rem;
+        }
+
+        * {
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        }
+
+        body {
+            background: radial-gradient(circle at top left, #eef3ff 0, #f8fafc 40%, #f4f6fb 100%);
+            min-height: 100vh;
+        }
+
+        .mm-navbar {
+            background: linear-gradient(90deg, #002d6f, #004c97, #0078d4);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
+        }
+
+        .mm-navbar-brand-title {
+            font-weight: 700;
+            letter-spacing: 0.03em;
+        }
+
+        .mm-navbar-subtitle {
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+
+        .page-wrapper {
+            padding: 2rem 1rem 3rem;
+        }
+
+        @media (min-width: 992px) {
+            .page-wrapper {
+                padding: 2.5rem 3rem 3.5rem;
+            }
+        }
+
+        /* Navbar estilo Microsoft */
+        .navbar-custom {
+            background-color: #0078d4 !important;
+            box-shadow: 0 1.6px 3.6px rgba(0, 0, 0, 0.13), 0 0.3px 0.9px rgba(0, 0, 0, 0.11);
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #005a9e;
+        }
+
+        .navbar-brand {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #ffffff !important;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .navbar-brand i {
+            font-size: 1.3rem;
+        }
+
+        .page-header {
+            background: white;
+            border-radius: 2px;
+            padding: 1.5rem;
+            box-shadow: 0 1.6px 3.6px rgba(0, 0, 0, 0.13), 0 0.3px 0.9px rgba(0, 0, 0, 0.11);
+            margin-bottom: 1.5rem;
+            border: 1px solid #edebe9;
+        }
+
+        .page-title {
+            font-weight: 600;
+            color: #201f1e;
+            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .page-subtitle {
+            color: #605e5c;
+            font-size: 0.875rem;
+            margin-bottom: 0;
+        }
+
+        .badge-custom {
+            font-size: 0.875rem;
+            padding: 0.25rem 0.75rem;
+            font-weight: 600;
+            border-radius: 2px;
+        }
+
+        .page-title-badge {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .mm-diagram {
+            background: #ffffff;
+            border-radius: 1.25rem;
+            box-shadow: 0 18px 45px rgba(15, 23, 42, 0.18);
+            padding: 2rem 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @media (min-width: 992px) {
+            .mm-diagram {
+                padding: 2.5rem 2rem;
+            }
+        }
+
+        .mm-diagram::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at top right, rgba(0, 120, 212, 0.14), transparent 60%);
+            opacity: 0.9;
+            pointer-events: none;
+        }
+
+        .mm-diagram-inner {
+            position: relative;
+            z-index: 1;
+        }
+
+        .mm-step {
+            background: #ffffff;
+            border-radius: 1rem;
+            border: 1px solid var(--mm-border);
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.10);
+            padding: 1.4rem 1.2rem;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 0.55rem;
+            position: relative;
+        }
+
+        .mm-step-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+        }
+
+        .mm-step-title {
+            font-size: 0.98rem;
+            font-weight: 700;
+            color: var(--mm-gray-700);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .mm-step-badge {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .mm-step-icon {
+            width: var(--mm-icon-size);
+            height: var(--mm-icon-size);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--mm-primary-soft);
+            color: var(--mm-primary);
+            box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.4);
+        }
+
+        .mm-step-icon.icon-ml {
+            background: #f5f3ff;
+            color: #6d28d9;
+        }
+
+        .mm-step-icon.icon-db {
+            background: #ecfdf3;
+            color: #15803d;
+        }
+
+        .mm-step-icon.icon-app {
+            background: #fff7ed;
+            color: #c2410c;
+        }
+
+        .mm-step-body p {
+            font-size: 0.84rem;
+            color: var(--mm-gray-text);
+            margin-bottom: 0.35rem;
+        }
+
+        .mm-list {
+            padding-left: 1.05rem;
+            margin-bottom: 0;
+        }
+
+        .mm-list li {
+            font-size: 0.8rem;
+            margin-bottom: 0.15rem;
+            color: var(--mm-gray-text);
+        }
+
+        .mm-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            border-radius: 999px;
+            padding: 0.15rem 0.6rem;
+            font-size: var(--mm-text-xs);
+            font-weight: 500;
+            background-color: #eff6ff;
+            color: #1d4ed8;
+        }
+
+        .mm-arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6b7280;
+            font-size: 1.4rem;
+            height: 100%;
+        }
+
+        .mm-arrow-vertical {
+            text-align: center;
+            font-size: 1.3rem;
+            margin: 0.5rem 0;
+            color: #6b7280;
+        }
+
+        .mm-legend-card {
+            background: #0f172a;
+            color: #e5e7eb;
+            border-radius: 1rem;
+            padding: 1.25rem;
+            box-shadow: 0 14px 35px rgba(15, 23, 42, 0.65);
+        }
+
+        .mm-legend-badge {
+            font-size: 0.7rem;
+            letter-spacing: 0.08em;
+        }
+
+        .mm-legend-item {
+            font-size: 0.78rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .mm-legend-item strong {
+            display: block;
+            font-weight: 600;
+        }
+
+        .mm-legend-item .text-secondary {
+            font-size: 0.73rem;
+            color: #9ca3af;
+        }
+
+        .mm-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 999px;
+            display: inline-block;
+            margin-right: 0.35rem;
+        }
+
+        .mm-dot-api {
+            background: #38bdf8;
+        }
+
+        .mm-dot-ml {
+            background: #a855f7;
+        }
+
+        .mm-dot-db {
+            background: #22c55e;
+        }
+
+        .mm-dot-app {
+            background: #f97316;
+        }
+
+        .mm-code {
+            font-family: "Consolas", "SF Mono", Menlo, monospace;
+            font-size: 0.74rem;
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 0.6rem;
+            padding: 0.65rem 0.75rem;
+            color: #e5e7eb;
+        }
+
+        .mm-mini-title {
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #9ca3af;
+            margin-bottom: 0.35rem;
+        }
+
+        .mm-bottom-note {
+            font-size: 0.8rem;
+            color: var(--mm-gray-text);
+        }
+
+        .mm-info-box {
+            background: #f0f9ff;
+            border-left: 4px solid #0284c7;
+            border-radius: 0.5rem;
+            padding: 0.75rem 1rem;
+            margin-top: 1rem;
+        }
+
+        .mm-info-box.light {
+            background: #f0fdf4;
+            border-left-color: #16a34a;
+        }
+
+        .mm-table-responsive {
+            border-radius: 0.75rem;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(15, 23, 42, 0.08);
+        }
+
+        .mm-table {
+            font-size: 0.82rem;
+            margin-bottom: 0;
+        }
+
+        .mm-table thead {
+            background: #f8fafc;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .mm-table th {
+            color: var(--mm-gray-700);
+            font-weight: 600;
+            padding: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .mm-table td {
+            padding: 0.75rem;
+            color: var(--mm-gray-text);
+        }
+
+        .mm-table tr:hover {
+            background: #f8fafc;
+        }
+
+        .mm-link-doc {
+            color: #0284c7;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .mm-link-doc:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-shield-check"></i>
+                Morgan & Morgan - Portal de Integridad de Entes - Data Engineering
+            </a>
+            <div class="d-flex align-items-center">
+                <span class="text-white me-3" id="userInfo" style="font-size: 0.875rem;">
+                    <i class="bi bi-person-circle"></i> <span id="usernameDisplay"></span>
+                </span>
+                <button class="btn btn-outline-light btn-sm" onclick="logout()" title="Cerrar Sesión">
+                    <i class="bi bi-box-arrow-right"></i> Salir
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="page-wrapper">
+        <div class="container main-container">
+            <!-- Header de Página -->
+            <div class="page-header">
+                <div class="d-flex justify-content-between align-items-start flex-wrap">
+                    <div>
+                        <h1 class="page-title">
+                            <i class="bi bi-cpu-fill"></i>
+                            Orquestación de Datos y Algoritmos
+                        </h1>
+                        <p class="page-subtitle">
+                            <i class="bi bi-info-circle"></i>
+                            Este diagrama muestra cómo las APIs de múltiples fuentes alimentan el pipeline de Machine
+                            Learning,
+                            cómo el Científico de Datos entrena y publica modelos, y cómo el Portal Morgan & Morgan
+                            consume los resultados desde la base de datos central.
+                        </p>
+                    </div>
+                    <div class="d-flex gap-3 flex-wrap align-items-center">
+                        <button type="button" class="btn btn-primary btn-lg shadow-sm" id="btnGenerarComparaciones"
+                            onclick="window.location.href='index.html'"
+                            style="min-width: 200px; padding: 0.75rem 1.5rem; font-weight: 600;">
+                            <i class="bi bi-arrow-repeat me-2"></i> Generar Comparaciones
+                        </button>
+                        <button type="button" class="btn btn-warning btn-lg shadow-sm text-dark"
+                            onclick="window.location.href='manual.html'"
+                            style="min-width: 200px; padding: 0.75rem 1.5rem; font-weight: 600; background-color: #ffc107; border-color: #ffc107;">
+                            <i class="bi bi-hand-index me-2"></i> Selección Manual
+                        </button>
+                        <button type="button" class="btn btn-success btn-lg shadow-sm"
+                            onclick="window.location.href='index.html'; setTimeout(() => { if (typeof mostrarDatosProcesados === 'function') mostrarDatosProcesados(); }, 500);"
+                            style="min-width: 200px; padding: 0.75rem 1.5rem; font-weight: 600;">
+                            <i class="bi bi-check-circle me-2"></i> Datos Procesados
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid">
+                <!-- Encabezado -->
+                <div class="row mb-4 align-items-center">
+                    <div class="col-lg-7">
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <span class="badge bg-primary-subtle text-primary-emphasis page-title-badge">
+                                <i class="bi bi-diagram-3-fill me-1"></i> Flujo End-to-End
+                            </span>
+                            <span class="badge bg-secondary-subtle text-secondary-emphasis page-title-badge">
+                                APIs · ML · Base de Datos · Portal
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 mt-3 mt-lg-0">
+                        <div class="mm-legend-card">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="mm-legend-badge text-uppercase text-light-50">
+                                    <i class="bi bi-info-circle me-1"></i> Componentes
+                                </span>
+                                <span class="badge bg-success-subtle text-success-emphasis"
+                                    style="font-size:0.7rem;border-radius:999px;">
+                                    <i class="bi bi-shield-check me-1"></i> Data Governance
+                                </span>
+                            </div>
+                            <div class="mm-table-responsive">
+                                <table class="table table-hover mm-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Componente</th>
+                                            <th>Descripción</th>
+                                            <th>Doc</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><span class="mm-dot mm-dot-api"></span> <strong>APIs Origen</strong>
+                                            </td>
+                                            <td>Amadeus, MNet, Legados</td>
+                                            <td><a href="manual.html#apis" class="mm-link-doc"><i
+                                                        class="bi bi-book-half"></i></a></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="mm-dot mm-dot-ml"></span> <strong>ML Workspace</strong>
+                                            </td>
+                                            <td>Notebooks, Pipelines, Jobs</td>
+                                            <td><a href="manual.html#ml" class="mm-link-doc"><i
+                                                        class="bi bi-book-half"></i></a></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="mm-dot mm-dot-db"></span> <strong>Data Lake/DB</strong>
+                                            </td>
+                                            <td>Features, Modelos, Auditoría</td>
+                                            <td><a href="manual.html#db" class="mm-link-doc"><i
+                                                        class="bi bi-book-half"></i></a></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="mm-dot mm-dot-app"></span> <strong>Portal Frontend</strong>
+                                            </td>
+                                            <td>Bandeja, APIs Internas</td>
+                                            <td><a href="manual.html#portal" class="mm-link-doc"><i
+                                                        class="bi bi-book-half"></i></a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Diagrama principal -->
+                <div class="mm-diagram mt-2">
+                    <div class="mm-diagram-inner">
+                        <div class="row g-3 g-lg-4 align-items-stretch">
+                            <!-- Paso 1: APIs de Origen -->
+                            <div class="col-12 col-lg-3">
+                                <div class="mm-step">
+                                    <div class="mm-step-header">
+                                        <div class="mm-step-title">
+                                            <div class="mm-step-icon">
+                                                <i class="bi bi-cloud-arrow-down-fill"></i>
+                                            </div>
+                                            <span>1. Ingesta desde APIs</span>
+                                        </div>
+                                        <span
+                                            class="badge rounded-pill bg-info-subtle text-info-emphasis mm-step-badge">
+                                            Fuentes Externas
+                                        </span>
+                                    </div>
+                                    <div class="mm-step-body">
+                                        <p>
+                                            El sistema consume datos de <strong>APIs de terceros</strong> y sistemas
+                                            internos:
+                                        </p>
+                                        <ul class="mm-list">
+                                            <li>API Amadeus (reservas, viajeros)</li>
+                                            <li>API MNet (clientes, cuentas)</li>
+                                            <li>Sistemas Legados / Batch CSV</li>
+                                            <li>Listas de Sanciones, PEP, Control Lists</li>
+                                        </ul>
+                                        <p class="mb-1">
+                                            Cada llamada se <strong>normaliza</strong> y se guarda en una
+                                            <span class="mm-tag">
+                                                <i class="bi bi-braces"></i> Capa de Ingesta (Raw Layer)
+                                            </span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Flecha -->
+                            <div class="col-12 col-lg-1 d-none d-lg-flex">
+                                <div class="mm-arrow">
+                                    <i class="bi bi-arrow-right-circle-fill"></i>
+                                </div>
+                            </div>
+                            <div class="col-12 d-lg-none">
+                                <div class="mm-arrow-vertical">
+                                    <i class="bi bi-arrow-down-circle-fill"></i>
+                                </div>
+                            </div>
+
+                            <!-- Paso 2: Científico de Datos / Algoritmos -->
+                            <div class="col-12 col-lg-3">
+                                <div class="mm-step">
+                                    <div class="mm-step-header">
+                                        <div class="mm-step-title">
+                                            <div class="mm-step-icon icon-ml">
+                                                <i class="bi bi-bezier2"></i>
+                                            </div>
+                                            <span>2. Laboratorio de ML</span>
+                                        </div>
+                                        <span class="badge rounded-pill bg-purple text-light mm-step-badge"
+                                            style="background:#6d28d9 !important;">
+                                            Científico de Datos
+                                        </span>
+                                    </div>
+                                    <div class="mm-step-body">
+                                        <p>
+                                            El <strong>Científico de Datos</strong> trabaja sobre los datos
+                                            normalizados:
+                                        </p>
+                                        <ul class="mm-list">
+                                            <li>Explora y limpia datos (EDA)</li>
+                                            <li>Define <em>features</em> de similitud (nombre, teléfono, dirección,
+                                                etc.)
+                                            </li>
+                                            <li>Entrena modelos de detección de duplicados</li>
+                                            <li>Define umbrales de decisión (ej. 85%)</li>
+                                        </ul>
+                                        <p class="mb-1">
+                                            El modelo entrenado se publica como:
+                                        </p>
+                                        <ul class="mm-list">
+                                            <li><strong>Job batch</strong> (procesos nocturnos)</li>
+                                            <li>o <strong>API de Scoring</strong> (en tiempo real)</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Flecha -->
+                            <div class="col-12 col-lg-1 d-none d-lg-flex">
+                                <div class="mm-arrow">
+                                    <i class="bi bi-arrow-right-circle-fill"></i>
+                                </div>
+                            </div>
+                            <div class="col-12 d-lg-none">
+                                <div class="mm-arrow-vertical">
+                                    <i class="bi bi-arrow-down-circle-fill"></i>
+                                </div>
+                            </div>
+
+                            <!-- Paso 3: Base de Datos / Feature Store -->
+                            <div class="col-12 col-lg-2">
+                                <div class="mm-step">
+                                    <div class="mm-step-header">
+                                        <div class="mm-step-title">
+                                            <div class="mm-step-icon icon-db">
+                                                <i class="bi bi-database-fill"></i>
+                                            </div>
+                                            <span>3. Data Lake / DB</span>
+                                        </div>
+                                        <span
+                                            class="badge rounded-pill bg-success-subtle text-success-emphasis mm-step-badge">
+                                            Persistencia
+                                        </span>
+                                    </div>
+                                    <div class="mm-step-body">
+                                        <p>
+                                            Los resultados del modelo se guardan en una <strong>base de datos
+                                                central</strong>:
+                                        </p>
+                                        <ul class="mm-list">
+                                            <li>Tabla de grupos de duplicados</li>
+                                            <li>Scores de similitud por par/grupo</li>
+                                            <li>Flags de riesgo (PEP, sanciones)</li>
+                                            <li>Bitácora / Audit Trail</li>
+                                        </ul>
+                                        <p class="mb-1">
+                                            Esta capa actúa como <span class="mm-tag">
+                                                <i class="bi bi-box-seam"></i> Single Source of Truth
+                                            </span> para el portal.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Flecha -->
+                            <div class="col-12 col-lg-1 d-none d-lg-flex">
+                                <div class="mm-arrow">
+                                    <i class="bi bi-arrow-right-circle-fill"></i>
+                                </div>
+                            </div>
+                            <div class="col-12 d-lg-none">
+                                <div class="mm-arrow-vertical">
+                                    <i class="bi bi-arrow-down-circle-fill"></i>
+                                </div>
+                            </div>
+
+                            <!-- Paso 4: Portal / Sistema que consume -->
+                            <div class="col-12 col-lg-2">
+                                <div class="mm-step">
+                                    <div class="mm-step-header">
+                                        <div class="mm-step-title">
+                                            <div class="mm-step-icon icon-app">
+                                                <i class="bi bi-window-sidebar"></i>
+                                            </div>
+                                            <span>4. Portal Morgan &amp; Morgan</span>
+                                        </div>
+                                        <span
+                                            class="badge rounded-pill bg-warning-subtle text-warning-emphasis mm-step-badge">
+                                            Frontend / APIs
+                                        </span>
+                                    </div>
+                                    <div class="mm-step-body">
+                                        <p>
+                                            El <strong>Portal de Integridad de Entes</strong> se conecta a la DB central
+                                            vía
+                                            APIs internas:
+                                        </p>
+                                        <ul class="mm-list">
+                                            <li>API <code>/grupos-duplicados</code> (bandeja de casos)</li>
+                                            <li>API <code>/detalle-grupo/{id}</code> (modal de revisión)</li>
+                                            <li>API <code>/fusionar</code> (confirmar fusión)</li>
+                                            <li>API <code>/falsos-positivos</code> (lista de excepciones)</li>
+                                        </ul>
+                                        <p class="mb-0">
+                                            El usuario ve los resultados, decide, y el sistema <strong>devuelve las
+                                                decisiones</strong>
+                                            a la misma base de datos (actualizando estados y auditoría).
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Ejemplo mínimo de flujo API y Referencia de Componentes -->
+                        <div class="row mt-4 g-3">
+                            <div class="col-12 col-lg-8">
+                                <div class="bg-light border rounded-3 p-3 h-100">
+                                    <div class="mm-mini-title">
+                                        <i class="bi bi-arrow-repeat me-1"></i> Ejemplo de Flujo desde el Portal
+                                    </div>
+                                    <pre class="mm-code mb-0"><span style="color:#9ca3af;">// Frontend (index.html) consulta grupos detectados por ML</span>
+GET /api/grupos-duplicados?compania=201&amp;umbral=0.85
+
+<span style="color:#22c55e;">// Respuesta de la API (datos desde BD alimentada por modelos)</span>
+[
+  {
+    "idGrupo": "GRP-007",
+    "ente": "Patricia Elena Martínez",
+    "companias": ["201", "203"],
+    "similitud": 0.87,
+    "estado": "Requiere Taller Técnico",
+    "riesgos": ["PEP", "Watchlist"]
+  }
+]</pre>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-4">
+                                <div class="bg-white border rounded-3 p-3 h-100">
+                                    <div class="mm-mini-title">
+                                        <i class="bi bi-clipboard-check me-1"></i> Ciclo Completo
+                                    </div>
+                                    <ul class="mm-list">
+                                        <li><strong>1. Ingesta:</strong> APIs externas → Capa Raw</li>
+                                        <li><strong>2. ML:</strong> Científico entrena modelos</li>
+                                        <li><strong>3. BD:</strong> Resultados y riesgos persistidos</li>
+                                        <li><strong>4. Portal:</strong> Consulta vía APIs internas</li>
+                                        <li><strong>5. Decisión:</strong> Usuario marca fusiones</li>
+                                        <li><strong>6. Auditoría:</strong> Retroalimentación a BD</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tabla de Referencia de Componentes -->
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <div class="bg-white border rounded-3 p-3">
+                                    <div class="mm-mini-title mb-3">
+                                        <i class="bi bi-diagram-3 me-1"></i> Referencia Rápida de Componentes
+                                    </div>
+                                    <div class="mm-table-responsive">
+                                        <table class="table table-hover mm-table mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Componente</th>
+                                                    <th>Responsabilidad</th>
+                                                    <th>Tecnologías</th>
+                                                    <th>Documentación</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td><strong>1. APIs Origen</strong><br><span
+                                                            class="mm-dot mm-dot-api"></span></td>
+                                                    <td>Ingestar datos de fuentes externas y sistemas legados</td>
+                                                    <td>REST, SOAP, Batch</td>
+                                                    <td><a href="manual.html#apis-origen" class="mm-link-doc"><i
+                                                                class="bi bi-book-half me-1"></i>Ver Manual</a></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>2. ML Workspace</strong><br><span
+                                                            class="mm-dot mm-dot-ml"></span></td>
+                                                    <td>Entrenar y publicar modelos de detección de duplicados</td>
+                                                    <td>Python, Notebooks, Jobs</td>
+                                                    <td><a href="manual.html#ml-workspace" class="mm-link-doc"><i
+                                                                class="bi bi-book-half me-1"></i>Ver Manual</a></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>3. Data Lake/DB</strong><br><span
+                                                            class="mm-dot mm-dot-db"></span></td>
+                                                    <td>Almacenar features, modelos, resultados y auditoría</td>
+                                                    <td>PostgreSQL, Feature Store</td>
+                                                    <td><a href="manual.html#data-lake" class="mm-link-doc"><i
+                                                                class="bi bi-book-half me-1"></i>Ver Manual</a></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>4. Portal Frontend</strong><br><span
+                                                            class="mm-dot mm-dot-app"></span></td>
+                                                    <td>Interfaz de usuario para revisión y decisiones</td>
+                                                    <td>HTML5, JavaScript, APIs</td>
+                                                    <td><a href="manual.html#portal-frontend" class="mm-link-doc"><i
+                                                                class="bi bi-book-half me-1"></i>Ver Manual</a></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Flujo End-to-End</strong></td>
+                                                    <td>Orquestación completa de datos y algoritmos</td>
+                                                    <td>Pipelines, Orchestration</td>
+                                                    <td><a href="manual.html#flujo-completo" class="mm-link-doc"><i
+                                                                class="bi bi-book-half me-1"></i>Ver Manual</a></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </main>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+
+    <script>
+        // Verificar sesión al cargar la página
+        window.addEventListener('DOMContentLoaded', function () {
+            const isAuthenticated = localStorage.getItem('isAuthenticated');
+            const username = localStorage.getItem('username');
+
+            if (isAuthenticated !== 'true') {
+                // Redirigir al login si no hay sesión
+                window.location.href = 'login.html';
+            } else {
+                // Mostrar información del usuario
+                if (username) {
+                    const usernameDisplay = document.getElementById('usernameDisplay');
+                    if (usernameDisplay) {
+                        usernameDisplay.textContent = username;
+                    }
+                }
+            }
+        });
+
+        // Función para cerrar sesión
+        function logout() {
+            if (confirm('¿Está seguro que desea cerrar sesión?')) {
+                localStorage.removeItem('isAuthenticated');
+                localStorage.removeItem('username');
+                localStorage.removeItem('loginTime');
+                window.location.href = 'login.html';
+            }
+        }
+    </script>
+</body>
+
+</html>

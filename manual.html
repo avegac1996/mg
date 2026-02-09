@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Morgan &amp; Morgan - Selección Manual de Grupos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --mm-primary: #005fb8;
+            --mm-bg: #f4f6fb;
+            --mm-gray-700: #323130;
+            --ms-blue: #0078d4;
+            --ms-blue-dark: #005a9e;
+        }
+
+        * {
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        }
+
+        body {
+            background: radial-gradient(circle at top left, #eef3ff 0, #f8fafc 40%, #f4f6fb 100%);
+            min-height: 100vh;
+        }
+
+        /* Navbar estilo Microsoft */
+        .navbar-custom {
+            background-color: var(--ms-blue) !important;
+            box-shadow: 0 1.6px 3.6px rgba(0, 0, 0, 0.13), 0 0.3px 0.9px rgba(0, 0, 0, 0.11);
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--ms-blue-dark);
+        }
+
+        .navbar-brand {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #ffffff !important;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .navbar-brand i {
+            font-size: 1.3rem;
+        }
+
+        .page-wrapper {
+            padding: 2rem 1rem 3rem;
+        }
+
+        @media (min-width: 992px) {
+            .page-wrapper {
+                padding: 2.5rem 3rem 3.5rem;
+            }
+        }
+
+        .page-title {
+            font-weight: 700;
+            color: var(--mm-gray-700);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .page-title-badge {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .table-custom th {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            background-color: #f9fafb;
+        }
+
+        .table-custom td {
+            font-size: 0.85rem;
+            vertical-align: middle;
+        }
+
+        .mm-info-chip {
+            font-size: 0.8rem;
+        }
+
+        .page-header {
+            background: white;
+            border-radius: 2px;
+            padding: 1.5rem;
+            box-shadow: 0 1.6px 3.6px rgba(0, 0, 0, 0.13), 0 0.3px 0.9px rgba(0, 0, 0, 0.11);
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--ms-gray-30);
+        }
+
+        .page-title {
+            font-weight: 600;
+            color: var(--ms-gray-700);
+            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .page-subtitle {
+            color: var(--ms-gray-400);
+            font-size: 0.875rem;
+            margin-bottom: 0;
+        }
+
+        .badge-custom {
+            font-size: 0.875rem;
+            padding: 0.35rem 0.65rem;
+            font-weight: 600;
+        }
+
+        .main-container {
+            margin-top: 1.5rem;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-shield-check"></i>
+                Morgan & Morgan - Portal de Integridad de Entes - Data Engineering
+            </a>
+            <div class="d-flex align-items-center">
+                <span class="text-white me-3" id="userInfo" style="font-size: 0.875rem;">
+                    <i class="bi bi-person-circle"></i> <span id="usernameDisplay"></span>
+                </span>
+                <button class="btn btn-outline-light btn-sm" onclick="logout()" title="Cerrar Sesión">
+                    <i class="bi bi-box-arrow-right"></i> Salir
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="page-wrapper">
+        <div class="container main-container">
+            <!-- Header de Página -->
+            <div class="page-header">
+                <div class="d-flex justify-content-between align-items-start flex-wrap">
+                    <div>
+                        <h1 class="page-title">
+                            <i class="bi bi-clipboard-data"></i>
+                            Selección Manual de Entes
+                            <span class="badge bg-warning badge-custom ms-2" id="casosCount">0</span>
+                        </h1>
+                        <p class="page-subtitle">
+                            <i class="bi bi-info-circle"></i>
+                            <strong>Personas individuales</strong> que no pudieron ser agregadas a un grupo (similitud ≤
+                            20%). Seleccione una o más personas para crear un nuevo grupo manualmente.
+                        </p>
+                    </div>
+                    <div class="d-flex gap-3 flex-wrap align-items-center">
+                        <button type="button" class="btn btn-primary btn-lg shadow-sm" id="btnGenerarComparaciones"
+                            onclick="window.location.href='index.html'"
+                            style="min-width: 200px; padding: 0.75rem 1.5rem; font-weight: 600;">
+                            <i class="bi bi-arrow-repeat me-2"></i> Generar Comparaciones
+                        </button>
+                        <button type="button" class="btn btn-warning btn-lg shadow-sm text-dark"
+                            onclick="window.location.href='manual.html'"
+                            style="min-width: 200px; padding: 0.75rem 1.5rem; font-weight: 600; background-color: #ffc107; border-color: #ffc107;">
+                            <i class="bi bi-hand-index me-2"></i> Selección Manual
+                        </button>
+                        <button type="button" class="btn btn-success btn-lg shadow-sm"
+                            onclick="window.location.href='index.html'; setTimeout(() => { if (typeof mostrarDatosProcesados === 'function') mostrarDatosProcesados(); }, 500);"
+                            style="min-width: 200px; padding: 0.75rem 1.5rem; font-weight: 600;">
+                            <i class="bi bi-check-circle me-2"></i> Datos Procesados
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card shadow-sm">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <span style="font-size:0.85rem;font-weight:600;">
+                        <i class="bi bi-person-exclamation text-warning"></i> Personas Individuales (Similitud ≤ 20%) -
+                        Crear Grupo Manualmente
+                    </span>
+                    <button class="btn btn-sm btn-outline-secondary" type="button" onclick="seleccionarTodos()">
+                        <i class="bi bi-check2-square"></i> Seleccionar todos
+                    </button>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0 table-custom">
+                            <thead>
+                                <tr>
+                                    <th style="width: 40px;">
+                                        <input type="checkbox" id="chkTodos" onclick="toggleTodos(this)">
+                                    </th>
+                                    <th>ID Persona</th>
+                                    <th>Nombre de la Persona</th>
+                                    <th>Companía (CIA)</th>
+                                    <th>% Similitud</th>
+                                    <th>Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbodyEntesIndividuales">
+                                <!-- Personas individuales que no pudieron ser agregadas a un grupo (similitud ≤ 20%) -->
+                                <tr data-similitud="18">
+                                    <td><input type="checkbox" class="chk-ente" value="21"
+                                            data-nombre="Laura Beatriz Sánchez" data-similitud="18" data-compania="101">
+                                    </td>
+                                    <td>#PER-021</td>
+                                    <td><strong>Laura Beatriz Sánchez</strong></td>
+                                    <td>101</td>
+                                    <td><span class="badge bg-danger text-white">18%</span></td>
+                                    <td><span class="badge bg-secondary"><i class="bi bi-person-x"></i> Persona
+                                            Individual</span></td>
+                                </tr>
+                                <tr data-similitud="15">
+                                    <td><input type="checkbox" class="chk-ente" value="22"
+                                            data-nombre="Miguel Ángel Torres" data-similitud="15" data-compania="201">
+                                    </td>
+                                    <td>#PER-022</td>
+                                    <td><strong>Miguel Ángel Torres</strong></td>
+                                    <td>201</td>
+                                    <td><span class="badge bg-danger text-white">15%</span></td>
+                                    <td><span class="badge bg-secondary"><i class="bi bi-person-x"></i> Persona
+                                            Individual</span></td>
+                                </tr>
+                                <tr data-similitud="12">
+                                    <td><input type="checkbox" class="chk-ente" value="23"
+                                            data-nombre="Isabel Cristina Herrera" data-similitud="12"
+                                            data-compania="202"></td>
+                                    <td>#PER-023</td>
+                                    <td><strong>Isabel Cristina Herrera</strong></td>
+                                    <td>202</td>
+                                    <td><span class="badge bg-danger text-white">12%</span></td>
+                                    <td><span class="badge bg-secondary"><i class="bi bi-person-x"></i> Persona
+                                            Individual</span></td>
+                                </tr>
+                                <tr data-similitud="20">
+                                    <td><input type="checkbox" class="chk-ente" value="24"
+                                            data-nombre="Juan Carlos Morales" data-similitud="20" data-compania="203">
+                                    </td>
+                                    <td>#PER-024</td>
+                                    <td><strong>Juan Carlos Morales</strong></td>
+                                    <td>203</td>
+                                    <td><span class="badge bg-danger text-white">20%</span></td>
+                                    <td><span class="badge bg-secondary"><i class="bi bi-person-x"></i> Persona
+                                            Individual</span></td>
+                                </tr>
+                                <tr data-similitud="8">
+                                    <td><input type="checkbox" class="chk-ente" value="25"
+                                            data-nombre="Karen Alejandra Vega" data-similitud="8" data-compania="401">
+                                    </td>
+                                    <td>#PER-025</td>
+                                    <td><strong>Karen Alejandra Vega</strong></td>
+                                    <td>401</td>
+                                    <td><span class="badge bg-danger text-white">8%</span></td>
+                                    <td><span class="badge bg-secondary"><i class="bi bi-person-x"></i> Persona
+                                            Individual</span></td>
+                                </tr>
+                                <tr data-similitud="16">
+                                    <td><input type="checkbox" class="chk-ente" value="26"
+                                            data-nombre="Luis Alberto Castro" data-similitud="16" data-compania="101">
+                                    </td>
+                                    <td>#PER-026</td>
+                                    <td><strong>Luis Alberto Castro</strong></td>
+                                    <td>101</td>
+                                    <td><span class="badge bg-danger text-white">16%</span></td>
+                                    <td><span class="badge bg-secondary"><i class="bi bi-person-x"></i> Persona
+                                            Individual</span></td>
+                                </tr>
+                                <tr data-similitud="10">
+                                    <td><input type="checkbox" class="chk-ente" value="27"
+                                            data-nombre="Mariana Beatriz Díaz" data-similitud="10" data-compania="201">
+                                    </td>
+                                    <td>#PER-027</td>
+                                    <td><strong>Mariana Beatriz Díaz</strong></td>
+                                    <td>201</td>
+                                    <td><span class="badge bg-danger text-white">10%</span></td>
+                                    <td><span class="badge bg-secondary"><i class="bi bi-person-x"></i> Persona
+                                            Individual</span></td>
+                                </tr>
+                                <tr data-similitud="14">
+                                    <td><input type="checkbox" class="chk-ente" value="28"
+                                            data-nombre="Nicolás Eduardo Jiménez" data-similitud="14"
+                                            data-compania="202"></td>
+                                    <td>#PER-028</td>
+                                    <td><strong>Nicolás Eduardo Jiménez</strong></td>
+                                    <td>202</td>
+                                    <td><span class="badge bg-danger text-white">14%</span></td>
+                                    <td><span class="badge bg-secondary"><i class="bi bi-person-x"></i> Persona
+                                            Individual</span></td>
+                                </tr>
+                                <tr data-similitud="19">
+                                    <td><input type="checkbox" class="chk-ente" value="29"
+                                            data-nombre="Olga Patricia Solís" data-similitud="19" data-compania="203">
+                                    </td>
+                                    <td>#PER-029</td>
+                                    <td><strong>Olga Patricia Solís</strong></td>
+                                    <td>203</td>
+                                    <td><span class="badge bg-danger text-white">19%</span></td>
+                                    <td><span class="badge bg-secondary"><i class="bi bi-person-x"></i> Persona
+                                            Individual</span></td>
+                                </tr>
+                                <tr data-similitud="11">
+                                    <td><input type="checkbox" class="chk-ente" value="30"
+                                            data-nombre="Pedro José González" data-similitud="11" data-compania="401">
+                                    </td>
+                                    <td>#PER-030</td>
+                                    <td><strong>Pedro José González</strong></td>
+                                    <td>401</td>
+                                    <td><span class="badge bg-danger text-white">11%</span></td>
+                                    <td><span class="badge bg-secondary"><i class="bi bi-person-x"></i> Persona
+                                            Individual</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-footer d-flex justify-content-between align-items-center">
+                    <small class="text-muted" style="font-size:0.8rem;">
+                        <i class="bi bi-info-circle"></i> Seleccione una o más <strong>personas individuales</strong>
+                        para crear un nuevo grupo. Estas personas no pudieron ser agregadas automáticamente a ningún
+                        grupo por tener similitud ≤ 20%.
+                    </small>
+                    <button class="btn btn-primary" type="button" onclick="crearGrupoManual()">
+                        <i class="bi bi-plus-circle"></i> Crear Grupo con Personas Seleccionadas
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Verificar sesión al cargar la página
+        window.addEventListener('DOMContentLoaded', function () {
+            const isAuthenticated = localStorage.getItem('isAuthenticated');
+            const username = localStorage.getItem('username');
+
+            if (isAuthenticated !== 'true') {
+                // Redirigir al login si no hay sesión
+                window.location.href = 'login.html';
+            } else {
+                // Mostrar información del usuario
+                if (username) {
+                    const usernameDisplay = document.getElementById('usernameDisplay');
+                    if (usernameDisplay) {
+                        usernameDisplay.textContent = username;
+                    }
+                }
+
+                // Actualizar contador de personas individuales disponibles (similitud ≤ 20%)
+                const casosCount = document.getElementById('casosCount');
+                if (casosCount) {
+                    const totalPersonas = document.querySelectorAll('.chk-ente').length;
+                    casosCount.textContent = totalPersonas;
+                }
+            }
+        });
+
+        // Función para cerrar sesión
+        function logout() {
+            if (confirm('¿Está seguro que desea cerrar sesión?')) {
+                localStorage.removeItem('isAuthenticated');
+                localStorage.removeItem('username');
+                localStorage.removeItem('loginTime');
+                window.location.href = 'login.html';
+            }
+        }
+
+        function toggleTodos(master) {
+            const checks = document.querySelectorAll('.chk-ente');
+            checks.forEach(chk => chk.checked = master.checked);
+        }
+
+        function seleccionarTodos() {
+            const master = document.getElementById('chkTodos');
+            master.checked = true;
+            toggleTodos(master);
+        }
+
+        function crearGrupoManual() {
+            const seleccionados = Array.from(document.querySelectorAll('.chk-ente:checked')).map(chk => ({
+                id: parseInt(chk.value),
+                nombre: chk.getAttribute('data-nombre'),
+                compania: chk.getAttribute('data-compania'),
+                similitud: parseInt(chk.getAttribute('data-similitud'))
+            }));
+
+            if (seleccionados.length === 0) {
+                alert('Seleccione al menos una persona para crear un grupo.');
+                return;
+            }
+
+            if (seleccionados.length === 1) {
+                if (!confirm(`¿Desea crear un grupo con una sola persona: ${seleccionados[0].nombre}?\n\nNota: Un grupo normalmente contiene múltiples personas.`)) {
+                    return;
+                }
+            }
+
+            // Guardar las personas seleccionadas para crear un nuevo grupo
+            const nuevoGrupo = {
+                personas: seleccionados,
+                fechaCreacion: new Date().toISOString(),
+                usuario: localStorage.getItem('username') || 'Usuario',
+                tipo: 'Grupo Manual',
+                similitudPromedio: seleccionados.reduce((sum, e) => sum + e.similitud, 0) / seleccionados.length
+            };
+
+            // Guardar en localStorage
+            const gruposManuales = JSON.parse(localStorage.getItem('gruposManuales') || '[]');
+            gruposManuales.push(nuevoGrupo);
+            localStorage.setItem('gruposManuales', JSON.stringify(gruposManuales));
+
+            // Guardar también para que index.html pueda procesarlo (con información completa)
+            localStorage.setItem('gruposSeleccionadosManual', JSON.stringify(seleccionados.map(e => ({
+                id: e.id,
+                nombre: e.nombre,
+                compania: e.compania,
+                similitud: e.similitud
+            }))));
+
+            // Tomar la primera persona para abrir su modal automáticamente
+            const primero = seleccionados[0];
+
+            const numPersonas = seleccionados.length;
+            const mensaje = numPersonas === 1
+                ? '✓ Grupo manual creado con 1 persona seleccionada.\n\nRedirigiendo a la bandeja de revisión...'
+                : '✓ Grupo manual creado con ' + numPersonas + ' personas seleccionadas.\n\nRedirigiendo a la bandeja de revisión...';
+
+            alert(mensaje);
+
+            // Redirigir a index.html indicando que viene desde selección manual
+            window.location.href = 'index.html?grupoSeleccionado=' + primero.id + '&tipo=manual';
+        }
+    </script>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

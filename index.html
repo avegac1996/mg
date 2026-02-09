@@ -1,0 +1,3031 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal de Integridad de Entes - Morgan & Morgan</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <!-- Google Fonts - Sans-serif limpia -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            /* Microsoft Fluent UI Colors */
+            --ms-blue: #0078d4;
+            --ms-blue-dark: #005a9e;
+            --ms-blue-light: #106ebe;
+            --ms-gray-10: #faf9f8;
+            --ms-gray-20: #f3f2f1;
+            --ms-gray-30: #edebe9;
+            --ms-gray-40: #e1dfdd;
+            --ms-gray-50: #d2d0ce;
+            --ms-gray-100: #c8c6c4;
+            --ms-gray-200: #a19f9d;
+            --ms-gray-300: #8a8886;
+            --ms-gray-400: #605e5c;
+            --ms-gray-500: #484644;
+            --ms-gray-600: #323130;
+            --ms-gray-700: #201f1e;
+            --ms-success: #107c10;
+            --ms-warning: #ffaa44;
+            --ms-error: #d13438;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Segoe UI Web (West European)', 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif;
+            background-color: var(--ms-gray-10);
+            min-height: 100vh;
+            color: var(--ms-gray-700);
+            font-size: 14px;
+        }
+
+        /* Navbar estilo Microsoft */
+        .navbar-custom {
+            background-color: var(--ms-blue) !important;
+            box-shadow: 0 1.6px 3.6px rgba(0, 0, 0, 0.13), 0 0.3px 0.9px rgba(0, 0, 0, 0.11);
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--ms-blue-dark);
+        }
+
+        .navbar-brand {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #ffffff !important;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .navbar-brand i {
+            font-size: 1.3rem;
+        }
+
+        /* Cards de estadísticas estilo Microsoft */
+        .stats-card {
+            background: white;
+            border-radius: 2px;
+            padding: 1.25rem;
+            box-shadow: 0 1.6px 3.6px rgba(0, 0, 0, 0.13), 0 0.3px 0.9px rgba(0, 0, 0, 0.11);
+            transition: all 0.2s cubic-bezier(0.1, 0.9, 0.2, 1);
+            border: 1px solid var(--ms-gray-30);
+            height: 100%;
+        }
+
+        .stats-card:hover {
+            box-shadow: 0 3.2px 7.2px rgba(0, 0, 0, 0.13), 0 0.6px 1.8px rgba(0, 0, 0, 0.11);
+            border-color: var(--ms-blue);
+        }
+
+        .stats-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+            background-color: var(--ms-gray-20);
+            color: var(--ms-blue);
+        }
+
+        .stats-number {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: var(--ms-gray-700);
+            margin: 0.25rem 0;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .stats-label {
+            color: var(--ms-gray-400);
+            font-size: 0.75rem;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .main-container {
+            margin-top: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .page-header {
+            background: white;
+            border-radius: 2px;
+            padding: 1.5rem;
+            box-shadow: 0 1.6px 3.6px rgba(0, 0, 0, 0.13), 0 0.3px 0.9px rgba(0, 0, 0, 0.11);
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--ms-gray-30);
+        }
+
+        .page-title {
+            font-weight: 600;
+            color: var(--ms-gray-700);
+            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .page-subtitle {
+            color: var(--ms-gray-400);
+            font-size: 0.875rem;
+            margin-bottom: 0;
+        }
+
+        .badge-custom {
+            font-size: 0.875rem;
+            padding: 0.25rem 0.75rem;
+            font-weight: 600;
+            border-radius: 2px;
+        }
+
+        /* Botones estilo Microsoft */
+        .btn {
+            border-radius: 2px;
+            transition: all 0.2s cubic-bezier(0.1, 0.9, 0.2, 1);
+            font-weight: 400;
+            padding: 0.375rem 1rem;
+            border: 1px solid transparent;
+            font-size: 0.875rem;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .btn:hover {
+            box-shadow: 0 1.6px 3.6px rgba(0, 0, 0, 0.13), 0 0.3px 0.9px rgba(0, 0, 0, 0.11);
+        }
+
+        .btn-primary {
+            background-color: var(--ms-blue);
+            border-color: var(--ms-blue);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--ms-blue-light);
+            border-color: var(--ms-blue-light);
+        }
+
+        .btn-success {
+            background-color: var(--ms-success);
+            border-color: var(--ms-success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background-color: #0e6e0e;
+            border-color: #0e6e0e;
+        }
+
+        .btn-secondary {
+            background-color: var(--ms-gray-20);
+            border-color: var(--ms-gray-30);
+            color: var(--ms-gray-700);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--ms-gray-30);
+            border-color: var(--ms-gray-40);
+        }
+
+        .btn-danger {
+            background-color: var(--ms-error);
+            border-color: var(--ms-error);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #c02a2f;
+            border-color: #c02a2f;
+        }
+
+        .form-check-input:checked {
+            background-color: var(--ms-blue);
+            border-color: var(--ms-blue);
+        }
+
+        .form-check-label {
+            cursor: pointer;
+        }
+
+        /* Estilos para indicadores de diferencias */
+        .diferencia-indicator {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border: 2px solid black;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            z-index: 10;
+            cursor: pointer;
+        }
+
+        .diferencia-arrow {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            z-index: 5;
+        }
+
+        .arrow-right {
+            border-left: 15px solid rgba(0, 0, 0, 0.6);
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+        }
+
+        .card-highlight {
+            border: 2px solid var(--ms-blue) !important;
+            box-shadow: 0 4px 8px rgba(0, 120, 212, 0.3) !important;
+        }
+
+        /* Mejoras para los paneles de registro */
+        .registro-panel {
+            transition: all 0.3s ease;
+        }
+
+        .registro-panel:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15) !important;
+        }
+
+        .campo-diferente {
+            border: 2px solid #ffc107 !important;
+            background-color: #fff3cd !important;
+        }
+
+        /* Tabla estilo Microsoft */
+        .table-wrapper {
+            background: white;
+            border-radius: 2px;
+            padding: 1rem;
+            box-shadow: 0 1.6px 3.6px rgba(0, 0, 0, 0.13), 0 0.3px 0.9px rgba(0, 0, 0, 0.11);
+            overflow: hidden;
+            border: 1px solid var(--ms-gray-30);
+        }
+
+        .table-custom {
+            background-color: transparent;
+            margin-bottom: 0;
+        }
+
+        .table-custom thead {
+            background-color: var(--ms-gray-20);
+        }
+
+        .table-custom thead th {
+            font-weight: 600;
+            color: var(--ms-gray-700);
+            border-bottom: 2px solid var(--ms-gray-30);
+            padding: 0.75rem;
+            text-transform: none;
+            font-size: 0.75rem;
+            letter-spacing: 0;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .table-custom tbody tr {
+            transition: background-color 0.2s cubic-bezier(0.1, 0.9, 0.2, 1);
+            border-bottom: 1px solid var(--ms-gray-30);
+        }
+
+        .table-custom tbody td {
+            padding: 0.75rem;
+            vertical-align: middle;
+            font-size: 0.875rem;
+        }
+
+        .table-custom tbody tr:hover {
+            background-color: var(--ms-gray-20);
+            cursor: pointer;
+        }
+
+        /* Badges estilo Microsoft */
+        .badge {
+            padding: 0.125rem 0.5rem;
+            font-weight: 600;
+            border-radius: 2px;
+            font-size: 0.75rem;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .badge-yellow {
+            background-color: var(--ms-warning);
+            color: var(--ms-gray-700);
+        }
+
+        .badge-orange {
+            background-color: #ff8c00;
+            color: white;
+        }
+
+        .badge-gray {
+            background-color: var(--ms-gray-100);
+            color: var(--ms-gray-700);
+        }
+
+        .badge-high {
+            background-color: var(--ms-error);
+            color: white;
+        }
+
+        .badge-info {
+            background-color: var(--ms-blue);
+            color: white;
+        }
+
+        /* Modal estilo Microsoft */
+        .modal-content {
+            border-radius: 2px;
+            border: 1px solid var(--ms-gray-30);
+            box-shadow: 0 6.4px 14.4px rgba(0, 0, 0, 0.132), 0 1.2px 3.6px rgba(0, 0, 0, 0.108);
+        }
+
+        .modal-header {
+            background-color: var(--ms-blue);
+            color: white;
+            border-radius: 2px 2px 0 0;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--ms-blue-dark);
+        }
+
+        .modal-title {
+            font-weight: 600;
+            font-size: 1.25rem;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .btn-close {
+            filter: brightness(0) invert(1);
+            opacity: 0.9;
+        }
+
+        .btn-close:hover {
+            opacity: 1;
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+            background-color: var(--ms-gray-10);
+        }
+
+        .modal-section-title {
+            font-weight: 600;
+            color: var(--ms-gray-700);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--ms-gray-30);
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: var(--ms-gray-700);
+            margin-bottom: 0.375rem;
+            font-size: 0.875rem;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .form-control {
+            border-radius: 2px;
+            border: 1px solid var(--ms-gray-100);
+            padding: 0.5rem 0.75rem;
+            transition: all 0.2s cubic-bezier(0.1, 0.9, 0.2, 1);
+            background-color: white;
+            font-size: 0.875rem;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .form-control:focus {
+            border-color: var(--ms-blue);
+            box-shadow: 0 0 0 1px var(--ms-blue);
+            outline: none;
+        }
+
+        .ai-result-section {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 2px;
+            margin-top: 1.5rem;
+            border: 1px solid var(--ms-gray-30);
+        }
+
+        .ai-insight {
+            background-color: #e8f4f8;
+            border-left: 3px solid var(--ms-blue);
+            padding: 1rem;
+            border-radius: 2px;
+            margin-top: 1rem;
+        }
+
+        .ai-insight-title {
+            font-weight: 600;
+            color: var(--ms-gray-700);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .ai-insight-text {
+            color: var(--ms-gray-600);
+            line-height: 1.5;
+            margin: 0;
+            font-size: 0.875rem;
+        }
+
+        .btn-confirm-fusion {
+            font-size: 0.875rem;
+            padding: 0.5rem 1.5rem;
+            font-weight: 600;
+            border-radius: 2px;
+            text-transform: none;
+            letter-spacing: 0;
+        }
+
+        .warning-text {
+            color: var(--ms-gray-400);
+            font-size: 0.75rem;
+            font-style: normal;
+            margin-top: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Estilo para campos seleccionados manualmente (resaltado amarillo suave) */
+        .campo-destacado {
+            background-color: #fffbea !important;
+            border-left: 4px solid #ffc107;
+            padding: 0.5rem;
+            border-radius: 2px;
+            margin-bottom: 0.5rem;
+        }
+
+        .campo-destacado-label {
+            font-weight: 600;
+            color: #856404;
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            font-size: 0.8125rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .campo-destacado-valor {
+            color: #333;
+            font-weight: 500;
+            padding: 0.4rem;
+            background-color: #fffef5;
+            border-radius: 2px;
+            font-size: 0.8rem;
+        }
+
+        .badge-manual-select {
+            background-color: #ffc107;
+            color: #333;
+            font-size: 0.65rem;
+            padding: 0.2rem 0.4rem;
+            border-radius: 2px;
+            margin-left: 0.35rem;
+            font-weight: 600;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar-brand {
+                font-size: 0.95rem;
+            }
+
+            .main-container {
+                margin-top: 1rem;
+                padding: 0 0.5rem;
+            }
+
+            .page-title {
+                font-size: 1.25rem;
+            }
+
+            .page-header {
+                padding: 1rem;
+            }
+
+            .table-wrapper {
+                padding: 0.5rem;
+            }
+
+            .table-custom {
+                font-size: 0.8125rem;
+            }
+
+            .table-custom thead th,
+            .table-custom tbody td {
+                padding: 0.5rem 0.375rem;
+            }
+
+            .modal-section-title {
+                font-size: 0.9375rem;
+            }
+
+            .ai-result-section {
+                padding: 1rem;
+            }
+
+            .btn-confirm-fusion {
+                font-size: 0.8125rem;
+                padding: 0.5rem 1.25rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-shield-check"></i>
+                Morgan & Morgan - Portal de Integridad de Entes - Data Engineering
+            </a>
+            <div class="d-flex align-items-center">
+                <span class="text-white me-3" id="userInfo" style="font-size: 0.875rem;">
+                    <i class="bi bi-person-circle"></i> <span id="usernameDisplay"></span>
+                </span>
+                <button class="btn btn-outline-light btn-sm" onclick="logout()" title="Cerrar Sesión">
+                    <i class="bi bi-box-arrow-right"></i> Salir
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenedor Principal -->
+    <div class="container main-container">
+        <!-- Header de Página -->
+        <div class="page-header">
+            <div class="d-flex justify-content-between align-items-start flex-wrap">
+                <div>
+                    <h1 class="page-title">
+                        <i class="bi bi-clipboard-data"></i>
+                        Bandeja de Casos Pendientes (ML Detection)
+                        <span class="badge bg-danger badge-custom ms-2" id="casosCount">0</span>
+                    </h1>
+                    <p class="page-subtitle">
+                        <i class="bi bi-info-circle"></i>
+                        Sistema de detección de duplicados mediante algoritmos de Machine Learning. Revise y confirme
+                        los casos
+                        detectados.
+                    </p>
+                </div>
+                <div class="d-flex gap-3 flex-wrap align-items-center">
+                    <button type="button" class="btn btn-primary btn-lg shadow-sm" id="btnGenerarComparaciones"
+                        onclick="generarComparaciones()"
+                        style="min-width: 200px; padding: 0.75rem 1.5rem; font-weight: 600;">
+                        <i class="bi bi-arrow-repeat me-2"></i> Generar Comparaciones
+                    </button>
+                    <button type="button" class="btn btn-warning btn-lg shadow-sm text-dark"
+                        onclick="window.location.href='manual.html'"
+                        style="min-width: 200px; padding: 0.75rem 1.5rem; font-weight: 600; background-color: #ffc107; border-color: #ffc107;">
+                        <i class="bi bi-hand-index me-2"></i> Selección Manual
+                    </button>
+                    <button type="button" class="btn btn-success btn-lg shadow-sm" onclick="mostrarDatosProcesados()"
+                        style="min-width: 200px; padding: 0.75rem 1.5rem; font-weight: 600;">
+                        <i class="bi bi-check-circle me-2"></i> Datos Procesados
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Estado de Carga -->
+        <div class="row" id="loadingState" style="display: none;">
+            <div class="col-12">
+                <div class="table-wrapper">
+                    <div class="text-center py-5">
+                        <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
+                            <span class="visually-hidden">Cargando...</span>
+                        </div>
+                        <h5 class="mt-3" style="color: var(--ms-gray-700);">Ejecutando algoritmos de Machine Learning...
+                        </h5>
+                        <p class="text-muted">Analizando registros y detectando duplicados</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" id="tableContainer" style="display: none;">
+            <div class="col-12">
+                <!-- Tabla de Casos Pendientes -->
+                <div id="tablaCasosContainer">
+                    <!-- Filtro por Compañía (CIAs) -->
+                    <div class="mb-3">
+                        <label for="filtroCompania" class="form-label"
+                            style="font-weight: 600; color: var(--ms-gray-700);">
+                            <i class="bi bi-funnel"></i> Filtrar por Compañía (CIA):
+                        </label>
+                        <select class="form-select" id="filtroCompania"
+                            style="max-width: 300px; border-radius: 2px; border: 1px solid var(--ms-gray-100);"
+                            onchange="filtrarPorCompania()">
+                            <option value="todas">Todas las Compañías</option>
+                            <option value="101">CIA 101</option>
+                            <option value="201">CIA 201</option>
+                            <option value="202">CIA 202</option>
+                            <option value="203">CIA 203</option>
+                            <option value="401">CIA 401</option>
+                        </select>
+                    </div>
+
+                    <div class="table-wrapper">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-custom" id="tablaCasos">
+                                <thead>
+                                    <tr>
+                                        <th scope="col"><i class="bi bi-hash"></i> ID Grupo</th>
+                                        <th scope="col"><i class="bi bi-building"></i> Nombre del Ente</th>
+                                        <th scope="col"><i class="bi bi-diagram-3"></i> Registros en Grupo</th>
+                                        <th scope="col"><i class="bi bi-percent"></i> % Similitud Promedio</th>
+                                        <th scope="col"><i class="bi bi-info-circle"></i> Estado</th>
+                                        <th scope="col"><i class="bi bi-gear"></i> Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr data-compania="101" data-grupo="1"
+                                        onclick="openModalGrupo(1, 'Anthony Vega', '101', gruposData[1])">
+                                        <td><strong>#GRP-001</strong></td>
+                                        <td><strong>Anthony Vega</strong></td>
+                                        <td>
+                                            <span class="badge bg-info">Amadeus</span>
+                                            <span class="badge bg-primary">MNet</span>
+                                            <span class="badge bg-warning text-dark">Sistema C</span>
+                                            <span class="badge bg-secondary">3 registros</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge badge-yellow">87%</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-success"
+                                                style="display: inline-flex; align-items: center; gap: 0.25rem;">
+                                                <i class="bi bi-check-circle"></i> Auto-procesable
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary btn-sm"
+                                                onclick="event.stopPropagation(); openModalGrupo(1, 'Anthony Vega', '101', gruposData[1])">
+                                                <i class="bi bi-eye"></i> Revisar Grupo
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr data-compania="201" data-grupo="2"
+                                        onclick="openModalGrupo(2, 'María Rodríguez', '201', gruposData[2])">
+                                        <td><strong>#GRP-002</strong></td>
+                                        <td><strong>María Rodríguez</strong></td>
+                                        <td>
+                                            <span class="badge bg-info">Amadeus</span>
+                                            <span class="badge bg-primary">MNet</span>
+                                            <span class="badge bg-warning text-dark">Sistema D</span>
+                                            <span class="badge bg-success text-white">Sistema E</span>
+                                            <span class="badge bg-secondary">4 registros</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge badge-yellow">78%</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-info"
+                                                style="display: inline-flex; align-items: center; gap: 0.25rem;">
+                                                <i class="bi bi-eye"></i> Requiere Taller Técnico
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary btn-sm"
+                                                onclick="event.stopPropagation(); openModalGrupo(2, 'María Rodríguez', '201', gruposData[2])">
+                                                <i class="bi bi-eye"></i> Revisar Grupo
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr data-compania="202" data-grupo="3"
+                                        onclick="openModalGrupo(3, 'Carlos Méndez', '202', gruposData[3])">
+                                        <td><strong>#GRP-003</strong></td>
+                                        <td><strong>Carlos Méndez</strong></td>
+                                        <td>
+                                            <span class="badge bg-info">Amadeus</span>
+                                            <span class="badge bg-primary">MNet</span>
+                                            <span class="badge bg-warning text-dark">Sistema F</span>
+                                            <span class="badge bg-secondary">3 registros</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge badge-yellow">82%</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-info"
+                                                style="display: inline-flex; align-items: center; gap: 0.25rem;">
+                                                <i class="bi bi-eye"></i> Requiere Taller Técnico
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary btn-sm"
+                                                onclick="event.stopPropagation(); openModalGrupo(3, 'Carlos Méndez', '202', gruposData[3])">
+                                                <i class="bi bi-eye"></i> Revisar Grupo
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr data-compania="203" data-grupo="4"
+                                        onclick="openModalGrupo(4, 'Ana Patricia López', '203', gruposData[4])">
+                                        <td><strong>#GRP-004</strong></td>
+                                        <td><strong>Ana Patricia López</strong></td>
+                                        <td>
+                                            <span class="badge bg-info">Amadeus</span>
+                                            <span class="badge bg-primary">MNet</span>
+                                            <span class="badge bg-warning text-dark">Sistema G</span>
+                                            <span class="badge bg-success text-white">Sistema H</span>
+                                            <span class="badge bg-secondary">4 registros</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge badge-yellow">88%</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-success"
+                                                style="display: inline-flex; align-items: center; gap: 0.25rem;">
+                                                <i class="bi bi-check-circle"></i> Auto-procesable
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary btn-sm"
+                                                onclick="event.stopPropagation(); openModalGrupo(4, 'Ana Patricia López', '203', gruposData[4])">
+                                                <i class="bi bi-eye"></i> Revisar Grupo
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr data-compania="401" data-grupo="5"
+                                        onclick="openModalGrupo(5, 'Roberto Sánchez', '401', gruposData[5])">
+                                        <td><strong>#GRP-005</strong></td>
+                                        <td><strong>Roberto Sánchez</strong></td>
+                                        <td>
+                                            <span class="badge bg-info">Amadeus</span>
+                                            <span class="badge bg-primary">MNet</span>
+                                            <span class="badge bg-warning text-dark">Sistema I</span>
+                                            <span class="badge bg-secondary">3 registros</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge badge-yellow">75%</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-info"
+                                                style="display: inline-flex; align-items: center; gap: 0.25rem;">
+                                                <i class="bi bi-eye"></i> Requiere Taller Técnico
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary btn-sm"
+                                                onclick="event.stopPropagation(); openModalGrupo(5, 'Roberto Sánchez', '401', gruposData[5])">
+                                                <i class="bi bi-eye"></i> Revisar Grupo
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr data-compania="101" data-grupo="6"
+                                        onclick="openModalGrupo(6, 'Luis Fernando Torres', '101', gruposData[6])">
+                                        <td><strong>#GRP-006</strong></td>
+                                        <td><strong>Luis Fernando Torres</strong></td>
+                                        <td>
+                                            <span class="badge bg-info">Amadeus</span>
+                                            <span class="badge bg-primary">MNet</span>
+                                            <span class="badge bg-warning text-dark">Sistema J</span>
+                                            <span class="badge bg-success text-white">Sistema K</span>
+                                            <span class="badge bg-secondary">4 registros</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge badge-yellow">80%</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-info"
+                                                style="display: inline-flex; align-items: center; gap: 0.25rem;">
+                                                <i class="bi bi-eye"></i> Requiere Taller Técnico
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary btn-sm"
+                                                onclick="event.stopPropagation(); openModalGrupo(6, 'Luis Fernando Torres', '101', gruposData[6])">
+                                                <i class="bi bi-eye"></i> Revisar Grupo
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr data-compania="201" data-grupo="7"
+                                        onclick="openModalGrupo(7, 'Patricia Elena Martínez', '201', gruposData[7])">
+                                        <td><strong>#GRP-007</strong></td>
+                                        <td><strong>Patricia Elena Martínez</strong></td>
+                                        <td>
+                                            <span class="badge bg-info">Amadeus</span>
+                                            <span class="badge bg-primary">MNet</span>
+                                            <span class="badge bg-warning text-dark">Sistema L</span>
+                                            <span class="badge bg-secondary">3 registros</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge badge-yellow">83%</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-info"
+                                                style="display: inline-flex; align-items: center; gap: 0.25rem;">
+                                                <i class="bi bi-eye"></i> Requiere Taller Técnico
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary btn-sm"
+                                                onclick="event.stopPropagation(); openModalGrupo(7, 'Patricia Elena Martínez', '201', gruposData[7])">
+                                                <i class="bi bi-eye"></i> Revisar Grupo
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr data-compania="401" data-grupo="8"
+                                        onclick="openModalGrupo(8, 'Jorge Alberto Herrera', '401', gruposData[8])">
+                                        <td><strong>#GRP-008</strong></td>
+                                        <td><strong>Jorge Alberto Herrera</strong></td>
+                                        <td>
+                                            <span class="badge bg-info">Amadeus</span>
+                                            <span class="badge bg-primary">MNet</span>
+                                            <span class="badge bg-warning text-dark">Sistema M</span>
+                                            <span class="badge bg-success text-white">Sistema N</span>
+                                            <span class="badge bg-secondary">4 registros</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge badge-yellow">77%</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-info"
+                                                style="display: inline-flex; align-items: center; gap: 0.25rem;">
+                                                <i class="bi bi-eye"></i> Requiere Taller Técnico
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary btn-sm"
+                                                onclick="event.stopPropagation(); openModalGrupo(8, 'Jorge Alberto Herrera', '401', gruposData[8])">
+                                                <i class="bi bi-eye"></i> Revisar Grupo
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr data-compania="202" data-grupo="9"
+                                        onclick="openModalGrupo(9, 'Fernando José González', '202', gruposData[9])">
+                                        <td><strong>#GRP-009</strong></td>
+                                        <td><strong>Fernando José González</strong></td>
+                                        <td>
+                                            <span class="badge bg-info">Amadeus</span>
+                                            <span class="badge bg-primary">MNet</span>
+                                            <span class="badge bg-warning text-dark">Sistema O</span>
+                                            <span class="badge bg-secondary">3 registros</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge badge-yellow">85%</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-success"
+                                                style="display: inline-flex; align-items: center; gap: 0.25rem;">
+                                                <i class="bi bi-check-circle"></i> Auto-procesable
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary btn-sm"
+                                                onclick="event.stopPropagation(); openModalGrupo(9, 'Fernando José González', '202', gruposData[9])">
+                                                <i class="bi bi-eye"></i> Revisar Grupo
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr data-compania="203" data-grupo="10"
+                                        onclick="openModalGrupo(10, 'Sofía Isabel Ramírez', '203', gruposData[10])">
+                                        <td><strong>#GRP-010</strong></td>
+                                        <td><strong>Sofía Isabel Ramírez</strong></td>
+                                        <td>
+                                            <span class="badge bg-info">Amadeus</span>
+                                            <span class="badge bg-primary">MNet</span>
+                                            <span class="badge bg-warning text-dark">Sistema P</span>
+                                            <span class="badge bg-success text-white">Sistema Q</span>
+                                            <span class="badge bg-secondary">4 registros</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge badge-yellow">79%</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-info"
+                                                style="display: inline-flex; align-items: center; gap: 0.25rem;">
+                                                <i class="bi bi-eye"></i> Requiere Taller Técnico
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary btn-sm"
+                                                onclick="event.stopPropagation(); openModalGrupo(10, 'Sofía Isabel Ramírez', '203', gruposData[10])">
+                                                <i class="bi bi-eye"></i> Revisar Grupo
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr data-compania="101" data-grupo="11"
+                                        onclick="openModalGrupo(11, 'Ricardo Díaz', '101', gruposData[11])">
+                                        <td><strong>#GRP-011</strong></td>
+                                        <td><strong>Ricardo Díaz</strong></td>
+                                        <td>
+                                            <span class="badge bg-info">Amadeus</span>
+                                            <span class="badge bg-primary">MNet</span>
+                                            <span class="badge bg-warning text-dark">Sistema R</span>
+                                            <span class="badge bg-secondary">3 registros</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge badge-yellow">42%</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-info"
+                                                style="display: inline-flex; align-items: center; gap: 0.25rem;">
+                                                <i class="bi bi-eye"></i> Requiere Taller Técnico
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary btn-sm"
+                                                onclick="event.stopPropagation(); openModalGrupo(11, 'Ricardo Díaz', '101', gruposData[11])">
+                                                <i class="bi bi-eye"></i> Revisar Grupo
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr data-compania="201" data-grupo="12"
+                                        onclick="openModalGrupo(12, 'Gabriela Morales', '201', gruposData[12])">
+                                        <td><strong>#GRP-012</strong></td>
+                                        <td><strong>Gabriela Morales</strong></td>
+                                        <td>
+                                            <span class="badge bg-info">Amadeus</span>
+                                            <span class="badge bg-primary">MNet</span>
+                                            <span class="badge bg-warning text-dark">Sistema S</span>
+                                            <span class="badge bg-success text-white">Sistema T</span>
+                                            <span class="badge bg-secondary">4 registros</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge badge-yellow">38%</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-info"
+                                                style="display: inline-flex; align-items: center; gap: 0.25rem;">
+                                                <i class="bi bi-eye"></i> Requiere Taller Técnico
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary btn-sm"
+                                                onclick="event.stopPropagation(); openModalGrupo(12, 'Gabriela Morales', '201', gruposData[12])">
+                                                <i class="bi bi-eye"></i> Revisar Grupo
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr data-compania="202" data-grupo="13"
+                                        onclick="openModalGrupo(13, 'Diego Alejandro Castro', '202', gruposData[13])">
+                                        <td><strong>#GRP-013</strong></td>
+                                        <td><strong>Diego Alejandro Castro</strong></td>
+                                        <td>
+                                            <span class="badge bg-info">Amadeus</span>
+                                            <span class="badge bg-primary">MNet</span>
+                                            <span class="badge bg-secondary">2 registros</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge badge-yellow">35%</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-info"
+                                                style="display: inline-flex; align-items: center; gap: 0.25rem;">
+                                                <i class="bi bi-eye"></i> Requiere Taller Técnico
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary btn-sm"
+                                                onclick="event.stopPropagation(); openModalGrupo(13, 'Diego Alejandro Castro', '202', gruposData[13])">
+                                                <i class="bi bi-eye"></i> Revisar Grupo
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr data-compania="203" data-grupo="14"
+                                        onclick="openModalGrupo(14, 'Valentina Solís', '203', gruposData[14])">
+                                        <td><strong>#GRP-014</strong></td>
+                                        <td><strong>Valentina Solís</strong></td>
+                                        <td>
+                                            <span class="badge bg-info">Amadeus</span>
+                                            <span class="badge bg-primary">MNet</span>
+                                            <span class="badge bg-warning text-dark">Sistema U</span>
+                                            <span class="badge bg-secondary">3 registros</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge badge-yellow">45%</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-info"
+                                                style="display: inline-flex; align-items: center; gap: 0.25rem;">
+                                                <i class="bi bi-eye"></i> Requiere Taller Técnico
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary btn-sm"
+                                                onclick="event.stopPropagation(); openModalGrupo(14, 'Valentina Solís', '203', gruposData[14])">
+                                                <i class="bi bi-eye"></i> Revisar Grupo
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr data-compania="401" data-grupo="15"
+                                        onclick="openModalGrupo(15, 'Andrés Felipe Jiménez', '401', gruposData[15])">
+                                        <td><strong>#GRP-015</strong></td>
+                                        <td><strong>Andrés Felipe Jiménez</strong></td>
+                                        <td>
+                                            <span class="badge bg-info">Amadeus</span>
+                                            <span class="badge bg-primary">MNet</span>
+                                            <span class="badge bg-warning text-dark">Sistema V</span>
+                                            <span class="badge bg-success text-white">Sistema W</span>
+                                            <span class="badge bg-secondary">4 registros</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge badge-yellow">30%</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-info"
+                                                style="display: inline-flex; align-items: center; gap: 0.25rem;">
+                                                <i class="bi bi-eye"></i> Requiere Taller Técnico
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary btn-sm"
+                                                onclick="event.stopPropagation(); openModalGrupo(15, 'Andrés Felipe Jiménez', '401', gruposData[15])">
+                                                <i class="bi bi-eye"></i> Revisar Grupo
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tabla de Datos Procesados -->
+                <div id="tablaProcesadosContainer" style="display: none;">
+                    <div class="table-wrapper">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-custom" id="tablaProcesados">
+                                <thead>
+                                    <tr>
+                                        <th scope="col"><i class="bi bi-hash"></i> ID Grupo</th>
+                                        <th scope="col"><i class="bi bi-building"></i> Nombre del Ente</th>
+                                        <th scope="col"><i class="bi bi-calendar-check"></i> Fecha Procesamiento</th>
+                                        <th scope="col"><i class="bi bi-person"></i> Usuario</th>
+                                        <th scope="col"><i class="bi bi-file-earmark-check"></i> Registro Unificado</th>
+                                        <th scope="col"><i class="bi bi-info-circle"></i> Estado</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbodyProcesados">
+                                    <!-- Se llenará dinámicamente -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Revisar Caso -->
+        <div class="modal fade" id="revisarCasoModal" tabindex="-1" aria-labelledby="revisarCasoModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="revisarCasoModalLabel">Revisión de Caso - Detección de Duplicados
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="modalBodyGrupo"
+                        style="padding: 1rem; max-height: 80vh; overflow-y: auto;">
+                        <!-- Los registros del grupo se cargarán dinámicamente aquí -->
+                        <div class="mb-4" style="overflow-x: auto; -webkit-overflow-scrolling: touch;">
+                            <div id="registrosContainer" class="row g-3"
+                                style="min-width: fit-content; flex-wrap: nowrap;">
+                                <!-- Se generarán dinámicamente -->
+                            </div>
+                        </div>
+
+                        <!-- Sistema de Tabs para organizar el contenido -->
+                        <ul class="nav nav-tabs mb-3" id="grupoTabs" role="tablist"
+                            style="border-bottom: 2px solid #dee2e6;">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="tab-comparacion" data-bs-toggle="tab"
+                                    data-bs-target="#panel-comparacion" type="button" role="tab"
+                                    style="font-size: 0.875rem; padding: 0.5rem 1rem;">
+                                    <i class="bi bi-files"></i> Comparación
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="tab-selector" data-bs-toggle="tab"
+                                    data-bs-target="#panel-selector" type="button" role="tab"
+                                    style="font-size: 0.875rem; padding: 0.5rem 1rem;">
+                                    <i class="bi bi-sliders"></i> Selector
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="tab-vista-previa" data-bs-toggle="tab"
+                                    data-bs-target="#panel-vista-previa" type="button" role="tab"
+                                    style="font-size: 0.875rem; padding: 0.5rem 1rem;">
+                                    <i class="bi bi-eye"></i> Vista Previa
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="tab-auditoria" data-bs-toggle="tab"
+                                    data-bs-target="#panel-auditoria" type="button" role="tab"
+                                    style="font-size: 0.875rem; padding: 0.5rem 1rem;">
+                                    <i class="bi bi-journal-text"></i> Auditoría
+                                </button>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content" id="grupoTabContent">
+                            <!-- Tab: Comparación -->
+                            <div class="tab-pane fade show active" id="panel-comparacion" role="tabpanel">
+                                <!-- Sección Resultado Sugerido por Machine Learning -->
+                                <div class="ai-result-section mb-3">
+                                    <h6 class="modal-section-title" style="font-size: 0.875rem;">
+                                        <i class="bi bi-robot"></i>
+                                        Resultado Sugerido por Machine Learning
+                                        <span class="badge bg-info ms-2" id="similitudBadge">0%</span>
+                                    </h6>
+                                    <div class="ai-insight">
+                                        <div class="ai-insight-title" style="font-size: 0.8125rem;">
+                                            <i class="bi bi-lightbulb"></i>
+                                            Análisis y Recomendación del Algoritmo ML
+                                        </div>
+                                        <p class="ai-insight-text" id="aiInsightText" style="font-size: 0.8125rem;">
+                                            Cargando análisis...
+                                        </p>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- Tab: Selector de Campos -->
+                            <div class="tab-pane fade" id="panel-selector" role="tabpanel">
+                                <div id="selectorCamposSection" style="display: none;">
+                                    <div class="alert alert-info mb-3" style="font-size: 0.8125rem; padding: 0.75rem;">
+                                        <i class="bi bi-info-circle"></i> <strong>Nota:</strong> Use "Fuente de Verdad"
+                                        en
+                                        cada panel para aplicar todos los campos, o seleccione individualmente cada
+                                        campo.
+                                    </div>
+                                    <div id="selectorCamposContainer">
+                                        <!-- Se generará dinámicamente -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Tab: Vista Previa -->
+                            <div class="tab-pane fade" id="panel-vista-previa" role="tabpanel">
+                                <div id="vistaPreviaSection" style="display: none;">
+                                    <!-- Tarjeta Principal - Registro Unificado Sugerido (Golden Record) -->
+                                    <div class="card"
+                                        style="border: 2px solid #4caf50; border-radius: 4px; margin-bottom: 1.5rem;">
+                                        <div class="card-header"
+                                            style="background: linear-gradient(90deg, #c8e6c9, #a5d6a7); padding: 0.75rem; border-bottom: 2px solid #4caf50;">
+                                            <h6 class="mb-0"
+                                                style="font-weight: 700; color: #1b5e20; font-size: 0.9375rem;">
+                                                <i class="bi bi-award-fill"></i> Registro Unificado Sugerido (Golden
+                                                Record)
+                                            </h6>
+                                            <small style="color: #2e7d32; font-size: 0.75rem;">
+                                                <i class="bi bi-info-circle"></i> Campos en amarillo fueron
+                                                seleccionados
+                                                manualmente
+                                            </small>
+                                        </div>
+                                        <div class="card-body" style="padding: 1rem; background-color: #fafafa;">
+                                            <div id="vistaPreviaCampos" style="font-size: 0.8125rem;">
+                                                <!-- Se llenará dinámicamente -->
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Resumen de la Acción -->
+                                    <div class="alert alert-info"
+                                        style="font-size: 0.8125rem; padding: 0.75rem; border-radius: 2px;">
+                                        <i class="bi bi-info-circle"></i> <strong>Próximo paso:</strong> Al confirmar la
+                                        fusión, los registros seleccionados se unificarán en una única entidad (Golden
+                                        Record) y se actualizarán todas las APIs. Se generará un registro de auditoría
+                                        con
+                                        su justificación.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Tab: Auditoría -->
+                            <div class="tab-pane fade" id="panel-auditoria" role="tabpanel">
+                                <div id="auditTrailSection" style="display: none;">
+                                    <div class="mb-3">
+                                        <label class="form-label" style="font-weight: 600; font-size: 0.875rem;">Motivo
+                                            del
+                                            Cambio:</label>
+                                        <textarea class="form-control form-control-sm" id="motivoCambio" rows="2"
+                                            placeholder="Describa el motivo de la fusión o cambio..." required
+                                            style="font-size: 0.8125rem;"></textarea>
+                                    </div>
+                                    <div id="auditPreview" style="font-size: 0.75rem; color: #0056b3;">
+                                        <strong>Log de Auditoría que se generará:</strong>
+                                        <ul class="mb-0 mt-2" style="padding-left: 1.5rem;">
+                                            <li><strong>Usuario:</strong> <span id="auditUsuario"></span></li>
+                                            <li><strong>Fecha:</strong> <span id="auditFecha"></span></li>
+                                            <li><strong>Acción:</strong> Fusión de Registros</li>
+                                            <li><strong>Valor Anterior:</strong> <span id="auditValorAnterior"></span>
+                                            </li>
+                                            <li><strong>Valor Nuevo:</strong> <span id="auditValorNuevo"></span></li>
+                                            <li><strong>Detalle de Unificación:</strong> <span
+                                                    id="auditDetalleUnificacion"></span></li>
+                                            <li><strong>Motivo:</strong> <span id="auditMotivo"></span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Botón de confirmación fijo en la parte inferior -->
+                        <div class="d-grid gap-2 mt-3 pt-3" style="border-top: 2px solid #dee2e6;">
+                            <button type="button" class="btn btn-success btn-confirm-fusion" id="btnConfirmarFusion"
+                                onclick="confirmarFusion()">
+                                <i class="bi bi-check-circle"></i> Confirmar Fusión y Actualizar APIs
+                            </button>
+                            <p class="warning-text mb-0" style="font-size: 0.75rem; text-align: center;">
+                                <i class="bi bi-exclamation-triangle"></i>
+                                Esta acción generará un log en el Acta de Control de Cambios
+                            </p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" onclick="marcarFalsoPositivo()">
+                            <i class="bi bi-x-circle"></i> Marcar como No Duplicado (Falso Positivo)
+                        </button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bootstrap 5 JS Bundle -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"></script>
+
+        <script>
+            // Verificar sesión al cargar la página
+            window.addEventListener('DOMContentLoaded', function () {
+                const isAuthenticated = localStorage.getItem('isAuthenticated');
+                const username = localStorage.getItem('username');
+
+                if (isAuthenticated !== 'true') {
+                    // Redirigir al login si no hay sesión
+                    window.location.href = 'login.html';
+                } else {
+                    // Mostrar información del usuario
+                    if (username) {
+                        const usernameDisplay = document.getElementById('usernameDisplay');
+                        if (usernameDisplay) {
+                            usernameDisplay.textContent = username;
+                        }
+                    }
+
+                    // Ocultar tabla inicialmente
+                    const tableContainer = document.getElementById('tableContainer');
+                    const loadingState = document.getElementById('loadingState');
+                    if (tableContainer) tableContainer.style.display = 'none';
+                    if (loadingState) loadingState.style.display = 'none';
+
+                    // Si venimos desde manual.html con grupos seleccionados, filtrar y mostrar solo esos grupos
+                    try {
+                        const params = new URLSearchParams(window.location.search);
+                        const grupoParam = params.get('grupoSeleccionado');
+                        const tipoParam = params.get('tipo');
+                        const seleccionManual = JSON.parse(localStorage.getItem('gruposSeleccionadosManual') || '[]');
+
+                        if (grupoParam && tipoParam === 'manual' && seleccionManual.length > 0) {
+                            const grupoId = parseInt(grupoParam);
+                            const encontrado = seleccionManual.find(g => g.id === grupoId);
+
+                            console.log('Procesando grupo manual:', { grupoId, encontrado, seleccionManual });
+
+                            // Mostrar directamente la tabla (sin esperar al botón de generar comparaciones)
+                            if (tableContainer && loadingState) {
+                                loadingState.style.display = 'none';
+                                tableContainer.style.display = 'block';
+                            }
+
+                            // Crear grupo temporal con todos los entes seleccionados manualmente
+                            const grupoManual = {
+                                nombre: seleccionManual.length === 1
+                                    ? seleccionManual[0].nombre
+                                    : 'Grupo Manual - ' + seleccionManual.map(e => e.nombre).join(', '),
+                                compania: seleccionManual[0] && seleccionManual[0].compania ? seleccionManual[0].compania : '---',
+                                registros: [],
+                                similitudPromedio: 0,
+                                estado: 'Grupo Manual',
+                                esGrupoManual: true,
+                                entesSeleccionados: seleccionManual
+                            };
+
+                            // Combinar todos los registros de los entes seleccionados
+                            let totalSimilitud = 0;
+                            let entesConDatos = 0;
+                            seleccionManual.forEach(ente => {
+                                if (gruposData[ente.id] && gruposData[ente.id].registros) {
+                                    gruposData[ente.id].registros.forEach(registro => {
+                                        grupoManual.registros.push(registro);
+                                    });
+                                    totalSimilitud += gruposData[ente.id].similitudPromedio || 0;
+                                    entesConDatos++;
+                                } else {
+                                    console.warn('No se encontraron datos para el ente:', ente.id, gruposData[ente.id]);
+                                }
+                            });
+
+                            if (entesConDatos > 0) {
+                                grupoManual.similitudPromedio = Math.round(totalSimilitud / entesConDatos);
+                            }
+
+                            if (grupoManual.registros.length === 0) {
+                                alert('Error: No se encontraron registros para las personas seleccionadas. Por favor, intente nuevamente.');
+                                console.error('Grupo manual sin registros:', grupoManual, seleccionManual);
+                                return;
+                            }
+
+                            // Guardar el grupo manual temporalmente en gruposData con un ID especial
+                            const grupoManualId = 999; // ID especial para grupos manuales
+                            gruposData[grupoManualId] = grupoManual;
+
+                            // Abrir modal con el grupo manual creado
+                            const nombreGrupo = seleccionManual.length === 1
+                                ? seleccionManual[0].nombre
+                                : 'Grupo Manual (' + seleccionManual.length + ' personas)';
+                            grupoActualId = grupoManualId;
+
+                            console.log('Grupo manual creado:', grupoManual);
+
+                            // Usar setTimeout para asegurar que el DOM esté completamente renderizado y Bootstrap esté listo
+                            setTimeout(() => {
+                                try {
+                                    openModalGrupo(grupoManualId, nombreGrupo, grupoManual.compania, grupoManual);
+                                    // Asegurar que el modal se muestre
+                                    const modalElement = document.getElementById('revisarCasoModal');
+                                    if (modalElement) {
+                                        const modal = new bootstrap.Modal(modalElement);
+                                        modal.show();
+                                    }
+                                } catch (error) {
+                                    console.error('Error al abrir modal:', error);
+                                    alert('Error al abrir el modal de revisión. Por favor, intente nuevamente.');
+                                }
+                            }, 800);
+                        }
+                    } catch (e) {
+                        console.error('Error al procesar grupoSeleccionado desde manual.html', e);
+                        alert('Error al procesar la selección manual. Por favor, intente nuevamente.');
+                    }
+                }
+            });
+
+            // Función para generar comparaciones
+            function generarComparaciones() {
+                const btnGenerar = document.getElementById('btnGenerarComparaciones');
+                const loadingState = document.getElementById('loadingState');
+                const tableContainer = document.getElementById('tableContainer');
+                const casosCount = document.getElementById('casosCount');
+                const tablaCasosContainer = document.getElementById('tablaCasosContainer');
+                const tablaProcesadosContainer = document.getElementById('tablaProcesadosContainer');
+                const filtroCompania = document.getElementById('filtroCompania');
+                const btnDatosProcesados = document.querySelector('button[onclick="mostrarDatosProcesados()"]');
+
+                // Restaurar vista de casos pendientes si estaba en datos procesados
+                if (tablaCasosContainer && tablaProcesadosContainer) {
+                    tablaCasosContainer.style.display = 'block';
+                    tablaProcesadosContainer.style.display = 'none';
+                }
+                if (filtroCompania) filtroCompania.style.display = 'block';
+
+                // Restaurar estilo del botón "Datos Procesados" si estaba activo
+                if (btnDatosProcesados) {
+                    btnDatosProcesados.classList.remove('btn-outline-success');
+                    btnDatosProcesados.classList.add('btn-success');
+                }
+
+                // Deshabilitar botón y mostrar estado de carga
+                btnGenerar.disabled = true;
+                btnGenerar.innerHTML = '<i class="bi bi-hourglass-split"></i> Procesando...';
+                if (loadingState) loadingState.style.display = 'block';
+                if (tableContainer) tableContainer.style.display = 'none';
+
+                // Simular procesamiento de Machine Learning (0.8 segundos - optimizado)
+                setTimeout(function () {
+                    // Procesar automáticamente grupos con similitud > 70%
+                    procesarGruposAutomaticos();
+
+                    // Ocultar carga y mostrar tabla
+                    if (loadingState) loadingState.style.display = 'none';
+                    if (tableContainer) tableContainer.style.display = 'block';
+
+                    // Asegurar que la tabla de casos pendientes esté visible
+                    if (tablaCasosContainer) tablaCasosContainer.style.display = 'block';
+                    if (tablaProcesadosContainer) tablaProcesadosContainer.style.display = 'none';
+
+                    // Filtrar y mostrar solo grupos con similitud entre 40-70% (requieren revisión)
+                    // Los grupos con similitud < 40% aparecen solo en manual.html
+                    // Los grupos con similitud > 70% ya fueron auto-procesados
+                    const filas = document.querySelectorAll('#tablaCasos tbody tr');
+                    let gruposVisibles = 0;
+
+                    filas.forEach(function (fila) {
+                        const grupoId = parseInt(fila.getAttribute('data-grupo'));
+                        if (grupoId && gruposData[grupoId]) {
+                            const similitud = gruposData[grupoId].similitudPromedio;
+                            if (similitud >= 40 && similitud <= 70) {
+                                // Solo mostrar grupos que requieren revisión (40-70%)
+                                fila.style.display = '';
+                                gruposVisibles++;
+                            } else {
+                                fila.style.display = 'none';
+                            }
+                        }
+                    });
+
+                    // Actualizar contador (solo grupos con similitud 40-70% que requieren revisión)
+                    if (casosCount) {
+                        casosCount.textContent = gruposVisibles;
+                        casosCount.className = 'badge bg-primary badge-custom ms-2';
+                    }
+
+                    // Llamar a actualizarContadorGrupos para asegurar consistencia
+                    actualizarContadorGrupos();
+
+                    // Restaurar botón
+                    btnGenerar.disabled = false;
+                    btnGenerar.innerHTML = '<i class="bi bi-arrow-repeat"></i> Generar Comparaciones';
+
+                    // Asegurar que la tabla sea visible
+                    if (tableContainer) {
+                        tableContainer.style.display = 'block';
+                        tableContainer.style.opacity = '1';
+                    }
+                }, 800);
+            }
+
+            // Función para eliminar un grupo
+            function eliminarGrupo(grupoId, nombreEnte) {
+                if (confirm(`¿Está seguro que desea eliminar el grupo #GRP-${String(grupoId).padStart(3, '0')} - ${nombreEnte}?\n\nEsta acción no se puede deshacer.`)) {
+                    // Buscar la fila correspondiente en la tabla
+                    const filas = document.querySelectorAll('#tablaCasos tbody tr');
+                    filas.forEach(function (fila) {
+                        const grupoAttr = fila.getAttribute('data-grupo');
+                        if (grupoAttr && grupoAttr === String(grupoId)) {
+                            // Eliminar la fila con animación
+                            fila.style.transition = 'opacity 0.3s ease-out';
+                            fila.style.opacity = '0';
+                            setTimeout(function () {
+                                fila.remove();
+                                // Actualizar contador de grupos
+                                actualizarContadorGrupos();
+                            }, 300);
+                        }
+                    });
+
+                    // Eliminar del objeto gruposData
+                    if (gruposData[grupoId]) {
+                        delete gruposData[grupoId];
+                    }
+                }
+            }
+
+            // Función para actualizar el contador de grupos
+            function actualizarContadorGrupos() {
+                const filas = document.querySelectorAll('#tablaCasos tbody tr');
+                const gruposVisibles = Array.from(filas).filter(fila => {
+                    const grupoId = parseInt(fila.getAttribute('data-grupo'));
+                    if (grupoId && gruposData[grupoId]) {
+                        const similitud = gruposData[grupoId].similitudPromedio;
+                        // Solo contar grupos con similitud entre 40-70% (requieren revisión)
+                        return fila.style.display !== 'none' && similitud >= 40 && similitud <= 70;
+                    }
+                    return false;
+                }).length;
+                const casosCount = document.getElementById('casosCount');
+                if (casosCount) {
+                    casosCount.textContent = gruposVisibles;
+                }
+            }
+
+            // Función para procesar automáticamente grupos con similitud > 70%
+            function procesarGruposAutomaticos() {
+                const datosProcesados = JSON.parse(localStorage.getItem('datosProcesados') || '[]');
+                let gruposAutoProcesados = 0;
+
+                // Recorrer todos los grupos en gruposData
+                Object.keys(gruposData).forEach(grupoIdStr => {
+                    const grupoId = parseInt(grupoIdStr);
+                    const grupo = gruposData[grupoId];
+
+                    if (grupo && grupo.similitudPromedio > 70 && !grupo.esGrupoManual) {
+                        // Este grupo debe ser auto-procesado
+                        gruposAutoProcesados++;
+
+                        // Construir el registro unificado usando el primer registro como base
+                        const registroUnificado = {
+                            nombre: grupo.registros[0].nombre || '',
+                            ruc: grupo.registros[0].ruc || '',
+                            direccion: grupo.registros[0].direccion || '',
+                            telefono: grupo.registros[0].telefono || '',
+                            celular: grupo.registros[0].celular || '',
+                            fechaNac: grupo.registros[0].fechaNac || '',
+                            fechaCreacion: grupo.registros[0].fechaCreacion || ''
+                        };
+
+                        // Construir selecciones de campos (usando el primer registro como fuente)
+                        const seleccionesCampos = {};
+                        const campos = ['nombre', 'ruc', 'direccion', 'telefono', 'celular', 'fechaNac', 'fechaCreacion'];
+                        campos.forEach(campo => {
+                            seleccionesCampos[campo] = {
+                                sistema: grupo.registros[0].sistema,
+                                valor: grupo.registros[0][campo] || ''
+                            };
+                        });
+
+                        // Crear el dato procesado
+                        const datoProcesado = {
+                            grupoId: grupoId,
+                            nombreEnte: grupo.nombre,
+                            compania: grupo.compania,
+                            fechaProcesamiento: new Date().toISOString(),
+                            usuario: 'Sistema (Auto-procesado)',
+                            registroUnificado: registroUnificado,
+                            fuenteVerdad: grupo.registros[0].sistema,
+                            seleccionesCampos: seleccionesCampos,
+                            motivo: 'Auto-procesado: Similitud > 70%',
+                            estado: 'Procesado',
+                            tipoProcesamiento: 'Automático'
+                        };
+
+                        datosProcesados.push(datoProcesado);
+
+                        // Ocultar la fila de la tabla
+                        const filas = document.querySelectorAll('#tablaCasos tbody tr');
+                        filas.forEach(function (fila) {
+                            const grupoAttr = fila.getAttribute('data-grupo');
+                            if (grupoAttr && grupoAttr === String(grupoId)) {
+                                fila.style.display = 'none';
+                            }
+                        });
+                    }
+                });
+
+                // Guardar los datos procesados
+                if (gruposAutoProcesados > 0) {
+                    localStorage.setItem('datosProcesados', JSON.stringify(datosProcesados));
+                    console.log(`${gruposAutoProcesados} grupo(s) auto-procesado(s) con similitud > 70%`);
+                }
+            }
+
+            // Función para mostrar datos procesados
+            function mostrarDatosProcesados() {
+                const tablaCasosContainer = document.getElementById('tablaCasosContainer');
+                const tablaProcesadosContainer = document.getElementById('tablaProcesadosContainer');
+                const filtroCompania = document.getElementById('filtroCompania');
+                const btnDatosProcesados = event.target.closest('button');
+
+                // Alternar visibilidad
+                if (tablaProcesadosContainer.style.display === 'none' || tablaProcesadosContainer.style.display === '') {
+                    // Mostrar tabla de procesados
+                    tablaCasosContainer.style.display = 'none';
+                    tablaProcesadosContainer.style.display = 'block';
+                    if (filtroCompania) filtroCompania.style.display = 'none';
+
+                    // Cambiar estilo del botón para indicar que está activo
+                    if (btnDatosProcesados) {
+                        btnDatosProcesados.classList.remove('btn-success');
+                        btnDatosProcesados.classList.add('btn-outline-success');
+                    }
+
+                    // Cargar datos procesados y actualizar contador en el título original
+                    cargarDatosProcesados();
+
+                    // Actualizar el badge del título original con el contador de procesados
+                    const casosCount = document.getElementById('casosCount');
+                    if (casosCount) {
+                        const datosProcesados = JSON.parse(localStorage.getItem('datosProcesados') || '[]');
+                        casosCount.textContent = datosProcesados.length;
+                        casosCount.className = 'badge bg-success badge-custom ms-2';
+                    }
+                } else {
+                    // Mostrar tabla de casos pendientes
+                    tablaCasosContainer.style.display = 'block';
+                    tablaProcesadosContainer.style.display = 'none';
+                    if (filtroCompania) filtroCompania.style.display = 'block';
+
+                    // Restaurar estilo del botón
+                    if (btnDatosProcesados) {
+                        btnDatosProcesados.classList.remove('btn-outline-success');
+                        btnDatosProcesados.classList.add('btn-success');
+                    }
+
+                    // Restaurar el contador original de casos pendientes
+                    const casosCount = document.getElementById('casosCount');
+                    if (casosCount) {
+                        actualizarContadorGrupos();
+                        casosCount.className = 'badge bg-danger badge-custom ms-2';
+                    }
+                }
+            }
+
+            // Función para cargar datos procesados en la tabla
+            function cargarDatosProcesados() {
+                const tbody = document.getElementById('tbodyProcesados');
+                if (!tbody) return;
+
+                const datosProcesados = JSON.parse(localStorage.getItem('datosProcesados') || '[]');
+
+                if (datosProcesados.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="6" class="text-center text-muted py-4"><i class="bi bi-inbox"></i> No hay datos procesados aún</td></tr>';
+                    return;
+                }
+
+                tbody.innerHTML = '';
+
+                datosProcesados.forEach(function (dato) {
+                    const fecha = new Date(dato.fechaProcesamiento);
+                    const fechaFormateada = fecha.toLocaleString('es-PA', {
+                        year: 'numeric',
+                        month: '2-digit',
+                        day: '2-digit',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+
+                    // Construir resumen del registro unificado
+                    const registroResumen = [];
+                    if (dato.registroUnificado.nombre) registroResumen.push(`<strong>Nombre:</strong> ${dato.registroUnificado.nombre}`);
+                    if (dato.registroUnificado.ruc) registroResumen.push(`<strong>RUC:</strong> ${dato.registroUnificado.ruc}`);
+                    if (dato.registroUnificado.direccion) registroResumen.push(`<strong>Dirección:</strong> ${dato.registroUnificado.direccion}`);
+
+                    const registroHTML = registroResumen.length > 0
+                        ? registroResumen.join('<br>')
+                        : '<span class="text-muted">Sin datos</span>';
+
+                    const fila = document.createElement('tr');
+                    fila.innerHTML = `
+                    <td><strong>#GRP-${String(dato.grupoId).padStart(3, '0')}</strong></td>
+                    <td><strong>${dato.nombreEnte}</strong></td>
+                    <td>${fechaFormateada}</td>
+                    <td>${dato.usuario}</td>
+                    <td style="font-size: 0.875rem;">${registroHTML}</td>
+                    <td>
+                        <span class="badge bg-success" style="display: inline-flex; align-items: center; gap: 0.25rem;">
+                            <i class="bi bi-check-circle"></i> ${dato.estado}
+                        </span>
+                    </td>
+                `;
+                    tbody.appendChild(fila);
+                });
+
+                // Actualizar contador
+                const procesadosCount = document.getElementById('procesadosCount');
+                if (procesadosCount) {
+                    procesadosCount.textContent = datosProcesados.length;
+                }
+            }
+
+            // Función para filtrar por compañía
+            function filtrarPorCompania() {
+                const filtro = document.getElementById('filtroCompania').value;
+                const filas = document.querySelectorAll('#tablaCasos tbody tr');
+
+                // Verificar si hay grupos seleccionados manualmente
+                const seleccionManual = JSON.parse(localStorage.getItem('gruposSeleccionadosManual') || '[]');
+                const idsSeleccionados = seleccionManual.length > 0 ? seleccionManual.map(g => String(g.id)) : null;
+
+                filas.forEach(function (fila) {
+                    const grupoAttr = fila.getAttribute('data-grupo');
+                    const grupoId = parseInt(grupoAttr);
+
+                    // Si hay selección manual, solo mostrar los grupos seleccionados
+                    if (idsSeleccionados && !idsSeleccionados.includes(grupoAttr)) {
+                        fila.style.display = 'none';
+                        return;
+                    }
+
+                    // Filtrar por similitud: solo mostrar grupos con similitud entre 40-70% (requieren revisión)
+                    // Los grupos con similitud > 70% son auto-procesados
+                    // Los grupos con similitud < 40% aparecen solo en manual.html
+                    if (grupoId && gruposData[grupoId]) {
+                        const similitud = gruposData[grupoId].similitudPromedio;
+                        if (similitud < 40 || similitud > 70) {
+                            fila.style.display = 'none';
+                            return;
+                        }
+                    }
+
+                    // Aplicar filtro de compañía
+                    if (filtro === 'todas') {
+                        fila.style.display = '';
+                    } else {
+                        const compania = fila.getAttribute('data-compania');
+                        if (compania === filtro) {
+                            fila.style.display = '';
+                        } else {
+                            fila.style.display = 'none';
+                        }
+                    }
+                });
+                // Actualizar contador después de filtrar
+                actualizarContadorGrupos();
+            }
+
+            // Variable global para guardar el ID del caso actual
+            let casoActualId = null;
+            let grupoActualId = null;
+
+            // Lista de Falsos Positivos (Lista de Excepciones) - Cargada desde localStorage
+            function obtenerListaFalsosPositivos() {
+                return JSON.parse(localStorage.getItem('listaFalsosPositivos') || '[]');
+            }
+
+            // Lista de indicadores de riesgo (PEP, Listas de Control, etc.)
+            const indicadoresRiesgo = {
+                '8-123-456': { pep: false, listaControl: false, sanciones: false },
+                '8-456-789': { pep: true, listaControl: false, sanciones: false },
+                '8-789-012': { pep: false, listaControl: true, sanciones: false },
+                '8-234-567': { pep: false, listaControl: false, sanciones: false },
+                '8-345-678': { pep: true, listaControl: true, sanciones: false },
+                '8-567-890': { pep: false, listaControl: false, sanciones: false },
+                '8-678-901': { pep: false, listaControl: false, sanciones: true },
+                '8-890-123': { pep: false, listaControl: false, sanciones: false },
+                '8-901-234': { pep: true, listaControl: false, sanciones: false }
+            };
+
+            // Función para verificar si un grupo está en la lista de falsos positivos
+            function esFalsoPositivo(grupoId, registros) {
+                const clave = generarClaveFalsoPositivo(registros);
+                const lista = obtenerListaFalsosPositivos();
+                return lista.includes(clave);
+            }
+
+            // Función para generar clave única para falsos positivos
+            function generarClaveFalsoPositivo(registros) {
+                return registros.map(r => `${r.sistema}-${r.ruc}-${r.celular}`).join('|');
+            }
+
+            // Función para verificar indicadores de riesgo
+            function verificarIndicadoresRiesgo(registros) {
+                const riesgos = [];
+                let bloqueado = false;
+
+                registros.forEach(registro => {
+                    const indicador = indicadoresRiesgo[registro.ruc];
+                    if (indicador) {
+                        if (indicador.pep) {
+                            riesgos.push({ tipo: 'PEP', descripcion: 'Persona Expuesta Políticamente', bloqueante: true });
+                            bloqueado = true;
+                        }
+                        if (indicador.listaControl) {
+                            riesgos.push({ tipo: 'Lista de Control', descripcion: 'En lista de control internacional', bloqueante: true });
+                            bloqueado = true;
+                        }
+                        if (indicador.sanciones) {
+                            riesgos.push({ tipo: 'Sanciones', descripcion: 'Sujeto a sanciones internacionales', bloqueante: true });
+                            bloqueado = true;
+                        }
+                    }
+                });
+
+                return { riesgos, bloqueado };
+            }
+
+            // Función para generar el selector de campos por fuente
+            function generarSelectorCampos(registros, grupoId) {
+                const selectorSection = document.getElementById('selectorCamposSection');
+                const selectorContainer = document.getElementById('selectorCamposContainer');
+
+                if (!selectorSection || !selectorContainer) return;
+
+                let html = '';
+                const campos = [
+                    { key: 'nombre', label: 'Nombre', icon: 'bi-person' },
+                    { key: 'ruc', label: 'RUC/ID', icon: 'bi-card-text' },
+                    { key: 'direccion', label: 'Dirección', icon: 'bi-geo-alt' },
+                    { key: 'telefono', label: 'Teléfono', icon: 'bi-telephone' },
+                    { key: 'celular', label: 'Celular', icon: 'bi-phone' },
+                    { key: 'fechaNac', label: 'Fecha Nac.', icon: 'bi-calendar' },
+                    { key: 'fechaCreacion', label: 'Fecha de Creación', icon: 'bi-calendar-check' }
+                ];
+
+                campos.forEach(campo => {
+                    html += `
+                    <div class="mb-3 p-3" style="background-color: white; border-radius: 4px; border: 1px solid #dee2e6;">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <label class="form-label mb-0" style="font-size: 0.875rem; font-weight: 600;">
+                                <i class="bi ${campo.icon}"></i> ${campo.label}
+                            </label>
+                        </div>
+                        <select class="form-select form-select-sm selector-campo"
+                                id="selector-${campo.key}-${grupoId}"
+                                data-campo="${campo.key}"
+                                onchange="actualizarVistaPrevia(gruposData[${grupoId}].registros, ${grupoId}); actualizarDetalleUnificacion(${grupoId});"
+                                style="font-size: 0.875rem;">
+                `;
+
+                    registros.forEach((registro, index) => {
+                        const valor = registro[campo.key] || '';
+                        const tieneValor = valor.trim() !== '';
+                        const selected = index === 0 ? 'selected' : '';
+                        const disabled = !tieneValor ? 'disabled' : '';
+                        const valorDisplay = tieneValor ? valor : '(Vacío)';
+
+                        html += `
+                        <option value="${index}" ${selected} ${disabled}>
+                            ${registro.sistema}${tieneValor ? `: ${valorDisplay}` : ' (Vacío)'}
+                        </option>
+                    `;
+                    });
+
+                    html += `
+                        </select>
+                    </div>
+                `;
+                });
+
+                selectorContainer.innerHTML = html;
+                selectorSection.style.display = 'block';
+            }
+
+            // Función para obtener el valor de un campo según el selector
+            function obtenerValorCampoSeleccionado(campo, registros, grupoId) {
+                const selector = document.getElementById(`selector-${campo}-${grupoId}`);
+                if (!selector) {
+                    // Fallback: usar el primer registro
+                    return registros[0][campo] || '';
+                }
+                const indiceSeleccionado = parseInt(selector.value);
+                return registros[indiceSeleccionado][campo] || '';
+            }
+
+            // Función para obtener la fuente de un campo según el selector
+            function obtenerFuenteCampoSeleccionado(campo, registros, grupoId) {
+                const selector = document.getElementById(`selector-${campo}-${grupoId}`);
+                if (!selector) {
+                    return registros[0].sistema;
+                }
+                const indiceSeleccionado = parseInt(selector.value);
+                return registros[indiceSeleccionado].sistema;
+            }
+
+            // Función para actualizar la vista previa del registro final unificado
+            function actualizarVistaPrevia(registros, grupoId) {
+                const vistaPreviaSection = document.getElementById('vistaPreviaSection');
+                const vistaPreviaCampos = document.getElementById('vistaPreviaCampos');
+
+                if (!vistaPreviaSection || !vistaPreviaCampos) return;
+
+                const campos = [
+                    { key: 'nombre', label: 'Nombre', icon: 'bi-person' },
+                    { key: 'ruc', label: 'RUC/ID', icon: 'bi-card-text' },
+                    { key: 'direccion', label: 'Dirección', icon: 'bi-geo-alt' },
+                    { key: 'telefono', label: 'Teléfono', icon: 'bi-telephone' },
+                    { key: 'celular', label: 'Celular', icon: 'bi-phone' },
+                    { key: 'fechaNac', label: 'Fecha Nac.', icon: 'bi-calendar' },
+                    { key: 'fechaCreacion', label: 'Fecha de Creación', icon: 'bi-calendar-check' }
+                ];
+
+                // Obtener la fuente maestra seleccionada
+                const fuenteMaestraRadio = document.querySelector('input[name="fuenteVerdadGrupo"]:checked');
+                const fuenteMaestra = fuenteMaestraRadio ? registros[parseInt(fuenteMaestraRadio.value)].sistema : registros[0].sistema;
+
+                // Construir el registro final basado en las selecciones individuales
+                const registroFinal = {};
+                campos.forEach(campo => {
+                    registroFinal[campo.key] = obtenerValorCampoSeleccionado(campo.key, registros, grupoId);
+                });
+
+                // Generar HTML de la vista previa
+                let html = '';
+                campos.forEach(campo => {
+                    const fuente = obtenerFuenteCampoSeleccionado(campo.key, registros, grupoId);
+                    const valor = registroFinal[campo.key] || '';
+                    const esSeleccionManual = fuente !== fuenteMaestra;
+                    const esDiferente = fuente !== registros[0].sistema;
+
+                    // Aplicar estilo diferente si es selección manual
+                    if (esSeleccionManual) {
+                        html += `
+                        <div class="campo-destacado">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <label class="campo-destacado-label">
+                                    <i class="bi ${campo.icon}"></i> ${campo.label}
+                                    <span class="badge-manual-select">
+                                        <i class="bi bi-hand-index"></i> SELECCIÓN MANUAL
+                                    </span>
+                                </label>
+                                <span class="badge bg-warning text-dark" style="font-size: 0.75rem;">
+                                    <i class="bi bi-arrow-left-right"></i> ${fuente}
+                                </span>
+                            </div>
+                            <div class="campo-destacado-valor">
+                                <i class="bi ${campo.icon}"></i> ${valor}
+                            </div>
+                        </div>
+                    `;
+                    } else {
+                        html += `
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <label class="form-label mb-0" style="font-size: 0.875rem; font-weight: 600;">
+                                    <i class="bi ${campo.icon}"></i> ${campo.label}
+                                </label>
+                                <span class="badge bg-success" style="font-size: 0.75rem;">
+                                    <i class="bi bi-check-circle"></i> ${fuente}
+                                </span>
+                            </div>
+                            <input type="text" class="form-control" value="${valor}"
+                                readonly style="font-size: 0.875rem; padding: 0.5rem;">
+                        </div>
+                    `;
+                    }
+                });
+
+                vistaPreviaCampos.innerHTML = html;
+                vistaPreviaSection.style.display = 'block';
+            }
+
+            // Función auxiliar para obtener la fuente de un campo
+            function obtenerFuenteCampo(campo, registroMaestra, registros, mergingHibrido) {
+                const valorMaestra = registroMaestra[campo] || '';
+
+                if (valorMaestra.trim() !== '') {
+                    return registroMaestra.sistema;
+                }
+
+                if (mergingHibrido) {
+                    const registroCompleto = registros.find(r => r[campo] && r[campo].trim() !== '');
+                    if (registroCompleto) {
+                        return registroCompleto.sistema;
+                    }
+                }
+
+                return registroMaestra.sistema;
+            }
+
+            // Función para configurar Data Merging
+            function configurarDataMerging(registros) {
+                const mergingPreview = document.getElementById('mergingPreview');
+                if (!mergingPreview) return;
+
+                // Esperar a que se seleccione una fuente de verdad
+                setTimeout(() => {
+                    const fuenteMaestra = document.querySelector('input[name="fuenteVerdadGrupo"]:checked');
+                    if (!fuenteMaestra) {
+                        mergingPreview.innerHTML = '<em>Seleccione una fuente de verdad para ver la vista previa del merging.</em>';
+                        return;
+                    }
+
+                    const indiceMaestra = parseInt(fuenteMaestra.value);
+                    const registroMaestra = registros[indiceMaestra];
+                    let html = '<div class="mt-2"><strong>Vista Previa de Campos a Completar:</strong><ul class="mb-0 mt-2" style="padding-left: 1.5rem;">';
+                    let hayCampos = false;
+
+                    ['nombre', 'direccion', 'telefono', 'celular', 'fechaNac'].forEach(campo => {
+                        if (!registroMaestra[campo] || registroMaestra[campo].trim() === '') {
+                            // Buscar en otros registros
+                            const registroCompleto = registros.find(r => r[campo] && r[campo].trim() !== '');
+                            if (registroCompleto) {
+                                html += `<li><strong>${campo}:</strong> Se completará con "${registroCompleto[campo]}" de ${registroCompleto.sistema}</li>`;
+                                hayCampos = true;
+                            }
+                        }
+                    });
+
+                    if (!hayCampos) {
+                        html += '<li>No hay campos nulos que completar. Todos los datos están presentes en la fuente maestra.</li>';
+                    }
+
+                    html += '</ul></div>';
+                    mergingPreview.innerHTML = html;
+                }, 100);
+
+                // Actualizar cuando cambie la fuente de verdad
+                document.querySelectorAll('input[name="fuenteVerdadGrupo"]').forEach(radio => {
+                    radio.removeEventListener('change', actualizarMerging);
+                    radio.addEventListener('change', function () {
+                        actualizarMerging();
+                    });
+                });
+
+                // Actualizar cuando cambie el checkbox de merging híbrido
+                const checkboxMerging = document.getElementById('habilitarMergingHibrido');
+                if (checkboxMerging) {
+                    checkboxMerging.removeEventListener('change', actualizarMerging);
+                    checkboxMerging.addEventListener('change', function () {
+                        actualizarMerging();
+                    });
+                }
+
+                function actualizarMerging() {
+                    configurarDataMerging(registros);
+                    // Obtener grupoId del contexto
+                    const grupoId = grupoActualId;
+                    if (grupoId !== null) {
+                        actualizarVistaPrevia(registros, grupoId);
+                    }
+                }
+            }
+
+            // Función para configurar auditoría
+            function configurarAuditoria(grupo, nombreEnte) {
+                const username = localStorage.getItem('username') || 'Usuario';
+                const fecha = new Date().toLocaleString('es-PA');
+
+                const auditUsuario = document.getElementById('auditUsuario');
+                const auditFecha = document.getElementById('auditFecha');
+                const auditValorAnterior = document.getElementById('auditValorAnterior');
+                const auditValorNuevo = document.getElementById('auditValorNuevo');
+
+                if (auditUsuario) auditUsuario.textContent = username;
+                if (auditFecha) auditFecha.textContent = fecha;
+
+                // Mejorar la descripción del valor anterior
+                if (auditValorAnterior) {
+                    auditValorAnterior.innerHTML = `
+                    <div style="margin-top: 0.25rem;">
+                        <strong>${grupo.registros.length} registros separados:</strong>
+                        <div style="margin-left: 1rem; margin-top: 0.25rem; font-size: 0.75rem; color: #666;">
+                            ${grupo.registros.map((r, idx) =>
+                        `${idx + 1}. ${r.sistema} (${r.nombre || 'Sin nombre'})`
+                    ).join('<br>')}
+                        </div>
+                    </div>
+                `;
+                }
+
+                // Mejorar la descripción del valor nuevo
+                if (auditValorNuevo) {
+                    auditValorNuevo.innerHTML = `
+                    <div style="margin-top: 0.25rem;">
+                        <strong>1 registro unificado</strong> combinando los mejores datos de ${grupo.registros.length} fuentes
+                    </div>
+                `;
+                }
+
+                // Actualizar detalle de unificación
+                setTimeout(() => {
+                    actualizarDetalleUnificacion(grupoActualId);
+                }, 500);
+
+                // Actualizar motivo en tiempo real
+                const motivoCambio = document.getElementById('motivoCambio');
+                if (motivoCambio) {
+                    motivoCambio.value = ''; // Limpiar al abrir nuevo modal
+                    motivoCambio.addEventListener('input', function () {
+                        const auditMotivo = document.getElementById('auditMotivo');
+                        if (auditMotivo) {
+                            auditMotivo.textContent = this.value || '(Pendiente)';
+                        }
+                    });
+                }
+            }
+
+            // Función para confirmar fusión con auditoría
+            function confirmarFusion() {
+                // Obtener el motivo del cambio desde el tab de auditoría
+                const motivoCambio = document.getElementById('motivoCambio');
+                const justificacion = (motivoCambio && motivoCambio.value) ? motivoCambio.value.trim() : '';
+
+                if (!justificacion || justificacion === '') {
+                    alert('Por favor, ingrese el motivo del cambio para completar el registro de auditoría.');
+                    if (motivoCambio) {
+                        motivoCambio.focus();
+                    }
+                    return;
+                }
+
+                // Ya no es obligatorio tener una fuente de verdad seleccionada,
+                // ya que cada campo se selecciona individualmente
+                // Pero verificamos que al menos haya selecciones en los campos
+                const camposValidar = ['nombre', 'ruc', 'direccion', 'telefono', 'celular', 'fechaNac', 'fechaCreacion'];
+                let haySelecciones = false;
+                camposValidar.forEach(campo => {
+                    const selector = document.getElementById(`selector-${campo}-${grupoActualId}`);
+                    if (selector && selector.value !== null) {
+                        haySelecciones = true;
+                    }
+                });
+
+                if (!haySelecciones) {
+                    alert('Por favor, asegúrese de que todos los campos tengan una fuente seleccionada.');
+                    return;
+                }
+
+                const grupo = gruposData[grupoActualId];
+                if (!grupo) {
+                    alert('Error: Grupo no encontrado');
+                    return;
+                }
+
+                // Verificar bloqueo por cumplimiento
+                const verificacionRiesgo = verificarIndicadoresRiesgo(grupo.registros);
+                if (verificacionRiesgo.bloqueado) {
+                    alert('No se puede procesar la fusión debido a indicadores de riesgo detectados (PEP, Listas de Control, Sanciones).');
+                    return;
+                }
+
+                // Obtener selecciones individuales de campos
+                const seleccionesCampos = {};
+                const campos = ['nombre', 'ruc', 'direccion', 'telefono', 'celular', 'fechaNac', 'fechaCreacion'];
+                campos.forEach(campo => {
+                    const selector = document.getElementById(`selector-${campo}-${grupoActualId}`);
+                    if (selector) {
+                        const indiceSeleccionado = parseInt(selector.value);
+                        seleccionesCampos[campo] = {
+                            sistema: grupo.registros[indiceSeleccionado].sistema,
+                            valor: grupo.registros[indiceSeleccionado][campo] || ''
+                        };
+                    }
+                });
+
+                // Obtener la fuente maestra
+                const fuenteMaestraRadio = document.querySelector('input[name="fuenteVerdadGrupo"]:checked');
+                const fuenteMaestraValue = fuenteMaestraRadio ? fuenteMaestraRadio.value : '0';
+
+                // Generar log de auditoría
+                const auditLog = {
+                    usuario: localStorage.getItem('username') || 'Usuario',
+                    fecha: new Date().toISOString(),
+                    accion: 'Fusión de Registros',
+                    grupoId: grupoActualId,
+                    nombreEnte: grupo.nombre,
+                    valorAnterior: `${grupo.registros.length} registros separados`,
+                    valorNuevo: '1 registro unificado',
+                    motivo: justificacion,
+                    fuenteVerdad: grupo.registros[parseInt(fuenteMaestraValue)].sistema,
+                    seleccionesCampos: seleccionesCampos,
+                    mergingHibrido: document.getElementById('habilitarMergingHibrido') ? document.getElementById('habilitarMergingHibrido').checked : false
+                };
+
+                // Guardar en localStorage (en producción sería un API)
+                const auditTrail = JSON.parse(localStorage.getItem('auditTrail') || '[]');
+                auditTrail.push(auditLog);
+                localStorage.setItem('auditTrail', JSON.stringify(auditTrail));
+
+                // Guardar en datos procesados
+                const datosProcesados = JSON.parse(localStorage.getItem('datosProcesados') || '[]');
+
+                // Construir el registro unificado final
+                const registroUnificado = {};
+                campos.forEach(campo => {
+                    const selector = document.getElementById(`selector-${campo}-${grupoActualId}`);
+                    if (selector) {
+                        const indiceSeleccionado = parseInt(selector.value);
+                        registroUnificado[campo] = grupo.registros[indiceSeleccionado][campo] || '';
+                    }
+                });
+
+                const datoProcesado = {
+                    grupoId: grupoActualId,
+                    nombreEnte: grupo.nombre,
+                    compania: grupo.compania,
+                    fechaProcesamiento: new Date().toISOString(),
+                    usuario: localStorage.getItem('username') || 'Usuario',
+                    registroUnificado: registroUnificado,
+                    fuenteVerdad: grupo.registros[parseInt(fuenteMaestraValue)].sistema,
+                    seleccionesCampos: seleccionesCampos,
+                    motivo: justificacion,
+                    estado: 'Procesado'
+                };
+
+                datosProcesados.push(datoProcesado);
+                localStorage.setItem('datosProcesados', JSON.stringify(datosProcesados));
+
+                // Remover el grupo de la tabla de casos pendientes
+                const filas = document.querySelectorAll('#tablaCasos tbody tr');
+                filas.forEach(function (fila) {
+                    const grupoAttr = fila.getAttribute('data-grupo');
+                    if (grupoAttr && grupoAttr === String(grupoActualId)) {
+                        fila.remove();
+                    }
+                });
+
+                // Actualizar contador
+                const casosCount = document.getElementById('casosCount');
+                if (casosCount) {
+                    actualizarContadorGrupos();
+                }
+
+                // Cerrar modal ANTES del alert para evitar problemas con el backdrop
+                const modalElement = document.getElementById('revisarCasoModal');
+                if (modalElement) {
+                    const modal = bootstrap.Modal.getInstance(modalElement);
+                    if (modal) {
+                        modal.hide();
+                    } else {
+                        // Si no hay instancia, crear una y cerrarla
+                        const newModal = new bootstrap.Modal(modalElement);
+                        newModal.hide();
+                    }
+
+                    // Asegurar que se elimine el backdrop y se restaure el scroll
+                    setTimeout(() => {
+                        // Eliminar backdrop si existe
+                        const backdrop = document.querySelector('.modal-backdrop');
+                        if (backdrop) {
+                            backdrop.remove();
+                        }
+
+                        // Restaurar scroll del body
+                        document.body.style.overflow = '';
+                        document.body.style.paddingRight = '';
+                        document.body.classList.remove('modal-open');
+                    }, 300);
+                }
+
+                alert('✓ Fusión confirmada y registrada en el log de auditoría.\n\nDetalles:\n- Golden Record creado exitosamente\n- Registro de auditoría generado\n- Los cambios se aplicarán a todas las APIs');
+            }
+
+            // Estructura de datos para grupos de casos
+            const gruposData = {
+                1: {
+                    nombre: 'Anthony Vega',
+                    compania: '101',
+                    registros: [
+                        { sistema: 'Amadeus', nombre: 'Anthony Vega', ruc: '8-123-456', direccion: 'Calle 50, Edificio Global', telefono: '+507 200-1000', celular: '6678-1234', fechaNac: '15/03/1985' },
+                        { sistema: 'MNet', nombre: 'A.V', ruc: '8123456', direccion: 'Av. Central 123', telefono: '+507 200-2000', celular: '6678-1234', fechaNac: '15/03/1985' },
+                        { sistema: 'Sistema C', nombre: 'Anthony V.', ruc: '8-123-456-7', direccion: 'Calle 50, Edif. Global, Piso 5', telefono: '+507 200-3000', celular: '6678-1234', fechaNac: '15/03/1985' }
+                    ],
+                    similitudPromedio: 87,
+                    estado: 'Auto-procesable'
+                },
+                2: {
+                    nombre: 'María Rodríguez',
+                    compania: '201',
+                    registros: [
+                        { sistema: 'Amadeus', nombre: 'María Rodríguez', ruc: '8-456-789', direccion: 'Boulevard Principal, Local 10', telefono: '+507 623-4567', celular: '6234-5678', fechaNac: '22/07/1990', fechaCreacion: '05/02/2018' },
+                        { sistema: 'MNet', nombre: 'Maria Rodriguez', ruc: '8456789', direccion: 'Blvd. Principal, Loc. 10', telefono: '+507 623-9999', celular: '6234-5678', fechaNac: '22/07/1990', fechaCreacion: '12/08/2019' },
+                        { sistema: 'Sistema D', nombre: 'M. Rodriguez', ruc: '8-456-789-0', direccion: 'Boulevard Principal', telefono: '+507 623-1111', celular: '6234-5678', fechaNac: '22/07/1990', fechaCreacion: '18/11/2020' },
+                        { sistema: 'Sistema E', nombre: 'María R.', ruc: '84567890', direccion: 'Blvd. Principal, Local 10, 2do Piso', telefono: '+507 623-2222', celular: '6234-5678', fechaNac: '22/07/1990', fechaCreacion: '03/04/2021' }
+                    ],
+                    similitudPromedio: 78,
+                    estado: 'Requiere Taller Técnico'
+                },
+                3: {
+                    nombre: 'Carlos Méndez',
+                    compania: '202',
+                    registros: [
+                        { sistema: 'Amadeus', nombre: 'Carlos Méndez', ruc: '8-789-012', direccion: 'Torre Empresarial, Piso 15', telefono: '+507 645-6789', celular: '6456-7890', fechaNac: '10/11/1988' },
+                        { sistema: 'MNet', nombre: 'C.Mendez', ruc: '8789012', direccion: 'Torre Emp., Piso 15', telefono: '+507 645-1111', celular: '6456-7890', fechaNac: '10/11/1988' },
+                        { sistema: 'Sistema F', nombre: 'Carlos M.', ruc: '8-789-012-3', direccion: 'Torre Empresarial', telefono: '+507 645-2222', celular: '6456-7890', fechaNac: '10/11/1988' }
+                    ],
+                    similitudPromedio: 82,
+                    estado: 'Requiere Taller Técnico'
+                },
+                4: {
+                    nombre: 'Ana Patricia López',
+                    compania: '203',
+                    registros: [
+                        { sistema: 'Amadeus', nombre: 'Ana Patricia López', ruc: '8-234-567', direccion: 'Centro Comercial, Local 25', telefono: '+507 656-7890', celular: '6567-8901', fechaNac: '05/12/1992' },
+                        { sistema: 'MNet', nombre: 'Ana P. Lopez', ruc: '8234567', direccion: 'C.C. Local 25', telefono: '+507 656-2222', celular: '6567-8901', fechaNac: '05/12/1992' },
+                        { sistema: 'Sistema G', nombre: 'A.P. López', ruc: '8-234-567-8', direccion: 'Centro Comercial', telefono: '+507 656-3333', celular: '6567-8901', fechaNac: '05/12/1992' },
+                        { sistema: 'Sistema H', nombre: 'Ana Patricia L.', ruc: '82345678', direccion: 'C.C., Local 25, Nivel 2', telefono: '+507 656-4444', celular: '6567-8901', fechaNac: '05/12/1992' }
+                    ],
+                    similitudPromedio: 88,
+                    estado: 'Auto-procesable'
+                },
+                5: {
+                    nombre: 'Roberto Sánchez',
+                    compania: '401',
+                    registros: [
+                        { sistema: 'Amadeus', nombre: 'Roberto Sánchez', ruc: '8-345-678', direccion: 'Avenida Reforma, Edificio 8', telefono: '+507 667-8901', celular: '6678-9012', fechaNac: '28/02/1987' },
+                        { sistema: 'MNet', nombre: 'R.Sanchez', ruc: '8345678', direccion: 'Av. Reforma, Edif. 8', telefono: '+507 667-3333', celular: '6678-9012', fechaNac: '28/02/1987' },
+                        { sistema: 'Sistema I', nombre: 'Roberto S.', ruc: '8-345-678-9', direccion: 'Avenida Reforma', telefono: '+507 667-5555', celular: '6678-9012', fechaNac: '28/02/1987' }
+                    ],
+                    similitudPromedio: 75,
+                    estado: 'Requiere Taller Técnico'
+                },
+                6: {
+                    nombre: 'Luis Fernando Torres',
+                    compania: '101',
+                    registros: [
+                        { sistema: 'Amadeus', nombre: 'Luis Fernando Torres', ruc: '8-567-890', direccion: 'Plaza Central, Oficina 301', telefono: '+507 689-0123', celular: '6890-1234', fechaNac: '14/09/1991' },
+                        { sistema: 'MNet', nombre: 'L.F.Torres', ruc: '8567890', direccion: 'Plaza Central, Of. 301', telefono: '+507 689-4444', celular: '6890-1234', fechaNac: '14/09/1991' },
+                        { sistema: 'Sistema J', nombre: 'Luis F. Torres', ruc: '8-567-890-1', direccion: 'Plaza Central', telefono: '+507 689-6666', celular: '6890-1234', fechaNac: '14/09/1991' },
+                        { sistema: 'Sistema K', nombre: 'L.F. Torres', ruc: '85678901', direccion: 'Plaza Central, Of. 301, Piso 3', telefono: '+507 689-7777', celular: '6890-1234', fechaNac: '14/09/1991' }
+                    ],
+                    similitudPromedio: 80,
+                    estado: 'Requiere Taller Técnico'
+                },
+                7: {
+                    nombre: 'Patricia Elena Martínez',
+                    compania: '201',
+                    registros: [
+                        { sistema: 'Amadeus', nombre: 'Patricia Elena Martínez', ruc: '8-678-901', direccion: 'Zona Libre, Almacén 12', telefono: '+507 678-9012', celular: '6789-0123', fechaNac: '03/06/1989' },
+                        { sistema: 'MNet', nombre: 'P.E.Martinez', ruc: '8678901', direccion: 'Zona Libre, Alm. 12', telefono: '+507 678-5555', celular: '6789-0123', fechaNac: '03/06/1989' },
+                        { sistema: 'Sistema L', nombre: 'Patricia E. Martínez', ruc: '8-678-901-2', direccion: 'Zona Libre', telefono: '+507 678-8888', celular: '6789-0123', fechaNac: '03/06/1989' }
+                    ],
+                    similitudPromedio: 83,
+                    estado: 'Requiere Taller Técnico'
+                },
+                8: {
+                    nombre: 'Jorge Alberto Herrera',
+                    compania: '401',
+                    registros: [
+                        { sistema: 'Amadeus', nombre: 'Jorge Alberto Herrera', ruc: '8-789-012', direccion: 'Avenida Balboa, Edificio 20', telefono: '+507 690-1234', celular: '6901-2345', fechaNac: '19/04/1986' },
+                        { sistema: 'MNet', nombre: 'J.A.Herrera', ruc: '8789012', direccion: 'Av. Balboa, Edif. 20', telefono: '+507 690-6666', celular: '6901-2345', fechaNac: '19/04/1986' },
+                        { sistema: 'Sistema M', nombre: 'Jorge A. Herrera', ruc: '8-789-012-3', direccion: 'Avenida Balboa', telefono: '+507 690-9999', celular: '6901-2345', fechaNac: '19/04/1986' },
+                        { sistema: 'Sistema N', nombre: 'J.A. Herrera', ruc: '87890123', direccion: 'Av. Balboa, Edif. 20, Piso 4', telefono: '+507 690-0000', celular: '6901-2345', fechaNac: '19/04/1986' }
+                    ],
+                    similitudPromedio: 77,
+                    estado: 'Requiere Taller Técnico'
+                },
+                9: {
+                    nombre: 'Fernando José González',
+                    compania: '202',
+                    registros: [
+                        { sistema: 'Amadeus', nombre: 'Fernando José González', ruc: '8-890-123', direccion: 'Calle Principal, Edificio 5', telefono: '+507 701-2345', celular: '7012-3456', fechaNac: '25/08/1993' },
+                        { sistema: 'MNet', nombre: 'F.J.Gonzalez', ruc: '8890123', direccion: 'Calle Principal, Edif. 5', telefono: '+507 701-1111', celular: '7012-3456', fechaNac: '25/08/1993' },
+                        { sistema: 'Sistema O', nombre: 'Fernando J. González', ruc: '8-890-123-4', direccion: 'Calle Principal', telefono: '+507 701-2222', celular: '7012-3456', fechaNac: '25/08/1993' }
+                    ],
+                    similitudPromedio: 85,
+                    estado: 'Auto-procesable'
+                },
+                10: {
+                    nombre: 'Sofía Isabel Ramírez',
+                    compania: '203',
+                    registros: [
+                        { sistema: 'Amadeus', nombre: 'Sofía Isabel Ramírez', ruc: '8-901-234', direccion: 'Boulevard Norte, Local 8', telefono: '+507 712-3456', celular: '7123-4567', fechaNac: '12/01/1994', fechaCreacion: '10/05/2020' },
+                        { sistema: 'MNet', nombre: 'Sofia I. Ramirez', ruc: '8901234', direccion: 'Blvd. Norte, Loc. 8', telefono: '+507 712-3333', celular: '7123-4567', fechaNac: '12/01/1994', fechaCreacion: '15/07/2021' },
+                        { sistema: 'Sistema P', nombre: 'S.I. Ramírez', ruc: '8-901-234-5', direccion: 'Boulevard Norte', telefono: '+507 712-4444', celular: '7123-4567', fechaNac: '12/01/1994', fechaCreacion: '22/09/2022' },
+                        { sistema: 'Sistema Q', nombre: 'Sofía I. Ramírez', ruc: '89012345', direccion: 'Blvd. Norte, Local 8, 1er Piso', telefono: '+507 712-5555', celular: '7123-4567', fechaNac: '12/01/1994', fechaCreacion: '08/11/2023' }
+                    ],
+                    similitudPromedio: 79,
+                    estado: 'Requiere Taller Técnico'
+                },
+                11: {
+                    nombre: 'Ricardo Díaz',
+                    compania: '101',
+                    registros: [
+                        { sistema: 'Amadeus', nombre: 'Ricardo Díaz', ruc: '8-111-222', direccion: 'Calle 72, Edificio Plaza', telefono: '+507 723-4567', celular: '7234-5678', fechaNac: '20/05/1980', fechaCreacion: '14/03/2019' },
+                        { sistema: 'MNet', nombre: 'R. Diaz', ruc: '8111222', direccion: 'Calle 72, Edif. Plaza', telefono: '+507 723-9999', celular: '7234-5678', fechaNac: '20/05/1980', fechaCreacion: '19/06/2020' },
+                        { sistema: 'Sistema R', nombre: 'Ricardo D.', ruc: '8-111-222-3', direccion: 'Calle 72', telefono: '+507 723-1111', celular: '7234-5678', fechaNac: '20/05/1980', fechaCreacion: '25/10/2021' }
+                    ],
+                    similitudPromedio: 42,
+                    estado: 'Requiere Taller Técnico'
+                },
+                12: {
+                    nombre: 'Gabriela Morales',
+                    compania: '201',
+                    registros: [
+                        { sistema: 'Amadeus', nombre: 'Gabriela Morales', ruc: '8-222-333', direccion: 'Avenida Sur, Torre 15', telefono: '+507 734-5678', celular: '7345-6789', fechaNac: '08/11/1995', fechaCreacion: '06/04/2020' },
+                        { sistema: 'MNet', nombre: 'G.Morales', ruc: '8222333', direccion: 'Av. Sur, Torre 15', telefono: '+507 734-2222', celular: '7345-6789', fechaNac: '08/11/1995', fechaCreacion: '11/08/2021' },
+                        { sistema: 'Sistema S', nombre: 'Gabriela M.', ruc: '8-222-333-4', direccion: 'Avenida Sur', telefono: '+507 734-3333', celular: '7345-6789', fechaNac: '08/11/1995', fechaCreacion: '17/12/2022' },
+                        { sistema: 'Sistema T', nombre: 'G. Morales', ruc: '82223334', direccion: 'Av. Sur, Torre 15, Piso 8', telefono: '+507 734-4444', celular: '7345-6789', fechaNac: '08/11/1995', fechaCreacion: '03/02/2024' }
+                    ],
+                    similitudPromedio: 38,
+                    estado: 'Requiere Taller Técnico'
+                },
+                13: {
+                    nombre: 'Diego Alejandro Castro',
+                    compania: '202',
+                    registros: [
+                        { sistema: 'Amadeus', nombre: 'Diego Alejandro Castro', ruc: '8-333-444', direccion: 'Boulevard Este, Local 42', telefono: '+507 745-6789', celular: '7456-7890', fechaNac: '15/09/1988', fechaCreacion: '09/01/2019' },
+                        { sistema: 'MNet', nombre: 'D.A.Castro', ruc: '8333444', direccion: 'Blvd. Este, Loc. 42', telefono: '+507 745-5555', celular: '7456-7890', fechaNac: '15/09/1988', fechaCreacion: '13/05/2020' }
+                    ],
+                    similitudPromedio: 35,
+                    estado: 'Requiere Taller Técnico'
+                },
+                14: {
+                    nombre: 'Valentina Solís',
+                    compania: '203',
+                    registros: [
+                        { sistema: 'Amadeus', nombre: 'Valentina Solís', ruc: '8-444-555', direccion: 'Centro Comercial, Local 18', telefono: '+507 756-7890', celular: '7567-8901', fechaNac: '22/03/1992', fechaCreacion: '18/07/2020' },
+                        { sistema: 'MNet', nombre: 'V.Solis', ruc: '8444555', direccion: 'C.C. Local 18', telefono: '+507 756-6666', celular: '7567-8901', fechaNac: '22/03/1992', fechaCreacion: '21/09/2021' },
+                        { sistema: 'Sistema U', nombre: 'Valentina S.', ruc: '8-444-555-6', direccion: 'Centro Comercial', telefono: '+507 756-7777', celular: '7567-8901', fechaNac: '22/03/1992', fechaCreacion: '04/11/2022' }
+                    ],
+                    similitudPromedio: 45,
+                    estado: 'Requiere Taller Técnico'
+                },
+                15: {
+                    nombre: 'Andrés Felipe Jiménez',
+                    compania: '401',
+                    registros: [
+                        { sistema: 'Amadeus', nombre: 'Andrés Felipe Jiménez', ruc: '8-555-666', direccion: 'Zona Industrial, Almacén 5', telefono: '+507 767-8901', celular: '7678-9012', fechaNac: '30/07/1985', fechaCreacion: '12/02/2018' },
+                        { sistema: 'MNet', nombre: 'A.F.Jimenez', ruc: '8555666', direccion: 'Zona Ind., Alm. 5', telefono: '+507 767-8888', celular: '7678-9012', fechaNac: '30/07/1985', fechaCreacion: '16/10/2019' },
+                        { sistema: 'Sistema V', nombre: 'Andrés F. Jiménez', ruc: '8-555-666-7', direccion: 'Zona Industrial', telefono: '+507 767-9999', celular: '7678-9012', fechaNac: '30/07/1985', fechaCreacion: '28/03/2021' },
+                        { sistema: 'Sistema W', nombre: 'A.F. Jiménez', ruc: '85556667', direccion: 'Zona Ind., Alm. 5, Sector B', telefono: '+507 767-0000', celular: '7678-9012', fechaNac: '30/07/1985', fechaCreacion: '07/06/2023' }
+                    ],
+                    similitudPromedio: 30,
+                    estado: 'Requiere Taller Técnico'
+                },
+                21: {
+                    nombre: 'Laura Beatriz Sánchez',
+                    compania: '101',
+                    registros: [
+                        { sistema: 'Amadeus', nombre: 'Laura Beatriz Sánchez', ruc: '8-100-200', direccion: 'Calle 100, Edificio Norte', telefono: '+507 900-1000', celular: '9001-0001', fechaNac: '20/01/1995' }
+                    ],
+                    similitudPromedio: 18,
+                    estado: 'Sin Grupo'
+                },
+                22: {
+                    nombre: 'Miguel Ángel Torres',
+                    compania: '201',
+                    registros: [
+                        { sistema: 'MNet', nombre: 'Miguel Ángel Torres', ruc: '8-200-300', direccion: 'Avenida 200, Local 50', telefono: '+507 901-2000', celular: '9002-0002', fechaNac: '15/05/1988' }
+                    ],
+                    similitudPromedio: 15,
+                    estado: 'Sin Grupo'
+                },
+                23: {
+                    nombre: 'Isabel Cristina Herrera',
+                    compania: '202',
+                    registros: [
+                        { sistema: 'Sistema EE', nombre: 'Isabel Cristina Herrera', ruc: '8-300-400', direccion: 'Boulevard 300, Torre 10', telefono: '+507 902-3000', celular: '9003-0003', fechaNac: '10/08/1992' }
+                    ],
+                    similitudPromedio: 12,
+                    estado: 'Sin Grupo'
+                },
+                24: {
+                    nombre: 'Juan Carlos Morales',
+                    compania: '203',
+                    registros: [
+                        { sistema: 'Amadeus', nombre: 'Juan Carlos Morales', ruc: '8-400-500', direccion: 'Plaza 400, Oficina 20', telefono: '+507 903-4000', celular: '9004-0004', fechaNac: '25/12/1990' }
+                    ],
+                    similitudPromedio: 20,
+                    estado: 'Sin Grupo'
+                },
+                25: {
+                    nombre: 'Karen Alejandra Vega',
+                    compania: '401',
+                    registros: [
+                        { sistema: 'MNet', nombre: 'Karen Alejandra Vega', ruc: '8-500-600', direccion: 'Calle 500, Edificio Sur', telefono: '+507 904-5000', celular: '9005-0005', fechaNac: '05/03/1994' }
+                    ],
+                    similitudPromedio: 8,
+                    estado: 'Sin Grupo'
+                },
+                26: {
+                    nombre: 'Luis Alberto Castro',
+                    compania: '101',
+                    registros: [
+                        { sistema: 'Sistema FF', nombre: 'Luis Alberto Castro', ruc: '8-600-700', direccion: 'Avenida 600, Local 30', telefono: '+507 905-6000', celular: '9006-0006', fechaNac: '18/07/1989' }
+                    ],
+                    similitudPromedio: 16,
+                    estado: 'Sin Grupo'
+                },
+                27: {
+                    nombre: 'Mariana Beatriz Díaz',
+                    compania: '201',
+                    registros: [
+                        { sistema: 'Amadeus', nombre: 'Mariana Beatriz Díaz', ruc: '8-700-800', direccion: 'Boulevard 700, Torre 15', telefono: '+507 906-7000', celular: '9007-0007', fechaNac: '22/09/1991' }
+                    ],
+                    similitudPromedio: 10,
+                    estado: 'Sin Grupo'
+                },
+                28: {
+                    nombre: 'Nicolás Eduardo Jiménez',
+                    compania: '202',
+                    registros: [
+                        { sistema: 'MNet', nombre: 'Nicolás Eduardo Jiménez', ruc: '8-800-900', direccion: 'Plaza 800, Oficina 25', telefono: '+507 907-8000', celular: '9008-0008', fechaNac: '30/11/1987' }
+                    ],
+                    similitudPromedio: 14,
+                    estado: 'Sin Grupo'
+                },
+                29: {
+                    nombre: 'Olga Patricia Solís',
+                    compania: '203',
+                    registros: [
+                        { sistema: 'Sistema GG', nombre: 'Olga Patricia Solís', ruc: '8-900-000', direccion: 'Calle 900, Edificio Este', telefono: '+507 908-9000', celular: '9009-0009', fechaNac: '12/04/1993' }
+                    ],
+                    similitudPromedio: 19,
+                    estado: 'Sin Grupo'
+                },
+                30: {
+                    nombre: 'Pedro José González',
+                    compania: '401',
+                    registros: [
+                        { sistema: 'Amadeus', nombre: 'Pedro José González', ruc: '8-000-100', direccion: 'Avenida 000, Local 40', telefono: '+507 909-0000', celular: '9010-0010', fechaNac: '08/06/1996' }
+                    ],
+                    similitudPromedio: 11,
+                    estado: 'Sin Grupo'
+                }
+            };
+
+            // Función para marcar como falso positivo (mejorada con Lista de Excepciones)
+            function marcarFalsoPositivo() {
+                if (confirm('¿Está seguro que desea marcar este grupo como No Duplicado (Falso Positivo)?\n\nEsto agregará el grupo a la Lista de Excepciones y el algoritmo de Machine Learning no lo volverá a sugerir.')) {
+                    const grupo = gruposData[grupoActualId];
+                    if (!grupo) {
+                        alert('Error: Grupo no encontrado');
+                        return;
+                    }
+
+                    // Agregar a la lista de falsos positivos
+                    const clave = generarClaveFalsoPositivo(grupo.registros);
+                    const listaActual = JSON.parse(localStorage.getItem('listaFalsosPositivos') || '[]');
+                    if (!listaActual.includes(clave)) {
+                        listaActual.push(clave);
+                        localStorage.setItem('listaFalsosPositivos', JSON.stringify(listaActual));
+                    }
+
+                    // Buscar la fila correspondiente en la tabla
+                    const filas = document.querySelectorAll('#tablaCasos tbody tr');
+                    filas.forEach(function (fila) {
+                        const grupoAttr = fila.getAttribute('data-grupo');
+                        if (grupoAttr && grupoAttr === String(grupoActualId)) {
+                            // Actualizar el estado a "Falso Positivo"
+                            const celdas = fila.querySelectorAll('td');
+                            if (celdas.length >= 5) {
+                                celdas[4].innerHTML = '<span class="badge bg-secondary" style="display: inline-flex; align-items: center; gap: 0.25rem;"><i class="bi bi-x-circle"></i> Falso Positivo</span>';
+                                fila.style.opacity = '0.6';
+                                fila.style.textDecoration = 'line-through';
+                            }
+                        }
+                    });
+
+                    // Registrar en auditoría
+                    const auditLog = {
+                        usuario: localStorage.getItem('username') || 'Usuario',
+                        fecha: new Date().toISOString(),
+                        accion: 'Marcar como Falso Positivo',
+                        grupoId: grupoActualId,
+                        nombreEnte: grupo.nombre,
+                        motivo: 'Grupo marcado como excepción - no corresponde al mismo ente'
+                    };
+                    const auditTrail = JSON.parse(localStorage.getItem('auditTrail') || '[]');
+                    auditTrail.push(auditLog);
+                    localStorage.setItem('auditTrail', JSON.stringify(auditTrail));
+
+                    alert('Grupo marcado como Falso Positivo y agregado a la Lista de Excepciones. El algoritmo no lo volverá a sugerir.');
+
+                    // Cerrar modal
+                    const modal = bootstrap.Modal.getInstance(document.getElementById('revisarCasoModal'));
+                    if (modal) modal.hide();
+                }
+            }
+
+            // Función para cerrar sesión
+            function logout() {
+                if (confirm('¿Está seguro que desea cerrar sesión?')) {
+                    localStorage.removeItem('isAuthenticated');
+                    localStorage.removeItem('username');
+                    localStorage.removeItem('loginTime');
+                    window.location.href = 'login.html';
+                }
+            }
+
+            // Función para abrir modal de grupo
+            function openModalGrupo(grupoId, nombreEnte, compania, grupoData) {
+                try {
+                    grupoActualId = grupoId;
+                    const grupo = grupoData || gruposData[grupoId];
+
+                    if (!grupo || !grupo.registros || grupo.registros.length === 0) {
+                        alert('Grupo no encontrado o sin registros');
+                        console.error('Grupo no encontrado:', grupoId, grupoData, gruposData);
+                        return;
+                    }
+
+                    // Actualizar título del modal
+                    const modalLabel = document.getElementById('revisarCasoModalLabel');
+                    if (!modalLabel) {
+                        alert('Error: No se encontró el modal');
+                        return;
+                    }
+
+                    // Determinar si es un grupo manual
+                    const esGrupoManual = grupo.esGrupoManual || grupoId === 999;
+                    const prefijoGrupo = esGrupoManual ? 'GRP-MANUAL' : 'GRP-' + String(grupoId).padStart(3, '0');
+                    modalLabel.innerHTML =
+                        `<i class="bi bi-file-earmark-check"></i> Revisión de Grupo #${prefijoGrupo} - ${nombreEnte} ${esGrupoManual ? '<span class="badge bg-warning text-dark ms-2" style="font-size: 0.75rem;">Grupo Manual</span>' : ''}`;
+
+                    // Limpiar contenedor de registros
+                    const container = document.getElementById('registrosContainer');
+                    if (!container) {
+                        alert('Error: No se encontró el contenedor de registros');
+                        return;
+                    }
+                    container.innerHTML = '';
+                    // Configurar el contenedor para mejor visualización responsive
+                    container.className = 'row g-3';
+                    container.style.cssText = 'min-width: fit-content; flex-wrap: nowrap;';
+
+                    // Generar columnas dinámicamente para cada registro
+                    grupo.registros.forEach((registro, index) => {
+                        // Calcular ancho mínimo para cada columna según número de registros
+                        // Para muchos registros, usar scroll horizontal con ancho fijo
+                        let minWidth;
+                        if (grupo.registros.length === 1) {
+                            minWidth = '100%';
+                        } else if (grupo.registros.length === 2) {
+                            minWidth = '48%';
+                        } else if (grupo.registros.length === 3) {
+                            minWidth = '32%';
+                        } else if (grupo.registros.length === 4) {
+                            minWidth = '24%';
+                        } else {
+                            // Para 5 o más registros, usar ancho mínimo fijo para scroll horizontal
+                            minWidth = '280px';
+                        }
+
+                        // Usar flexbox en lugar de columnas Bootstrap para mejor control
+                        const colClass = grupo.registros.length > 4 ? '' : `col-lg-${Math.floor(12 / Math.min(grupo.registros.length, 4))} col-md-6 col-sm-12`;
+
+                        // Determinar si hay diferencias con otros registros para mostrar indicadores
+                        const tieneDiferencias = index > 0; // Simplificado, se puede mejorar
+
+                        const registroHTML = `
+                    <div class="${colClass}" id="registro-${grupoId}-${index}" style="position: relative; min-width: ${minWidth}; flex: 0 0 ${minWidth}; ${grupo.registros.length > 4 ? 'margin-right: 1rem;' : ''}">
+                        <div class="card h-100" style="border: 2px solid ${index === 0 ? 'var(--ms-blue)' : 'var(--ms-gray-30)'}; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.12); transition: all 0.3s ease;">
+                            <div class="card-header" style="background-color: ${index === 0 ? '#e7f3ff' : 'var(--ms-gray-20)'}; padding: 1rem 1.25rem; border-bottom: 2px solid ${index === 0 ? 'var(--ms-blue)' : 'var(--ms-gray-30)'};">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h6 class="mb-0" style="font-weight: 700; color: var(--ms-gray-700); font-size: 1rem;">
+                                        <i class="bi bi-file-earmark-text"></i> ${registro.sistema}
+                                    </h6>
+                                    <div class="d-flex gap-2 align-items-center">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="fuenteVerdadGrupo"
+                                                id="fuenteVerdad${grupoId}-${index}" value="${index}" style="cursor: pointer; width: 1.1rem; height: 1.1rem;"
+                                                ${index === 0 ? 'checked' : ''}
+                                                onchange="aplicarFuenteVerdad(${grupoId}, ${index}); actualizarEstiloFuenteVerdad(${grupoId}); agregarIndicadoresDiferencias(gruposData[${grupoId}].registros, ${grupoId}); actualizarVistaPrevia(gruposData[${grupoId}].registros, ${grupoId}); actualizarDetalleUnificacion(${grupoId});">
+                                            <label class="form-check-label" for="fuenteVerdad${grupoId}-${index}"
+                                                style="font-size: 0.875rem; font-weight: 600; color: var(--ms-gray-700); cursor: pointer; margin-left: 0.5rem;">
+                                                Fuente de Verdad
+                                            </label>
+                                        </div>
+                                        <button type="button" class="btn btn-danger btn-sm"
+                                            onclick="eliminarRegistroDelGrupo(${grupoId}, ${index}, '${registro.sistema}')"
+                                            title="Eliminar este registro del grupo"
+                                            style="padding: 0.35rem 0.5rem; font-size: 0.875rem;">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body" style="padding: 1.25rem;">
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <label class="form-label mb-0" style="font-size: 0.875rem; font-weight: 600; color: var(--ms-gray-700);"><i class="bi bi-person me-1"></i> Nombre</label>
+                                        <small class="text-muted" style="font-size: 0.7rem; font-weight: 500;">${registro.sistema}</small>
+                                    </div>
+                                    <input type="text" class="form-control" value="${registro.nombre}" readonly style="font-size: 0.875rem; padding: 0.625rem; border-radius: 4px; background-color: #f8f9fa;">
+                                </div>
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <label class="form-label mb-0" style="font-size: 0.875rem; font-weight: 600; color: var(--ms-gray-700);"><i class="bi bi-credit-card me-1"></i> RUC/ID</label>
+                                        <small class="text-muted" style="font-size: 0.7rem; font-weight: 500;">${registro.sistema}</small>
+                                    </div>
+                                    <input type="text" class="form-control" value="${registro.ruc}" readonly style="font-size: 0.875rem; padding: 0.625rem; border-radius: 4px; background-color: #f8f9fa;">
+                                </div>
+                                <div class="mb-3" id="campo-direccion-${grupoId}-${index}">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <label class="form-label mb-0" style="font-size: 0.875rem; font-weight: 600; color: var(--ms-gray-700);"><i class="bi bi-geo-alt me-1"></i> Dirección</label>
+                                        <small class="text-muted" style="font-size: 0.7rem; font-weight: 500;">${registro.sistema}</small>
+                                    </div>
+                                    <input type="text" class="form-control" value="${registro.direccion}" readonly style="font-size: 0.875rem; padding: 0.625rem; border-radius: 4px; background-color: #f8f9fa;">
+                                </div>
+                                <div class="mb-3" id="campo-telefono-${grupoId}-${index}">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <label class="form-label mb-0" style="font-size: 0.875rem; font-weight: 600; color: var(--ms-gray-700);"><i class="bi bi-telephone me-1"></i> Teléfono</label>
+                                        <small class="text-muted" style="font-size: 0.7rem; font-weight: 500;">${registro.sistema}</small>
+                                    </div>
+                                    <input type="text" class="form-control" value="${registro.telefono}" readonly style="font-size: 0.875rem; padding: 0.625rem; border-radius: 4px; background-color: #f8f9fa;">
+                                </div>
+                                <div class="mb-3" id="campo-celular-${grupoId}-${index}">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <label class="form-label mb-0" style="font-size: 0.875rem; font-weight: 600; color: var(--ms-gray-700);"><i class="bi bi-phone me-1"></i> Celular</label>
+                                        <small class="text-muted" style="font-size: 0.7rem; font-weight: 500;">${registro.sistema}</small>
+                                    </div>
+                                    <input type="text" class="form-control" value="${registro.celular}" readonly style="font-size: 0.875rem; padding: 0.625rem; border-radius: 4px; background-color: #f8f9fa;">
+                                </div>
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <label class="form-label mb-0" style="font-size: 0.875rem; font-weight: 600; color: var(--ms-gray-700);"><i class="bi bi-calendar me-1"></i> Fecha Nac.</label>
+                                        <small class="text-muted" style="font-size: 0.7rem; font-weight: 500;">${registro.sistema}</small>
+                                    </div>
+                                    <input type="text" class="form-control" value="${registro.fechaNac}" readonly style="font-size: 0.875rem; padding: 0.625rem; border-radius: 4px; background-color: #f8f9fa;">
+                                </div>
+                                <div class="mb-0" id="campo-fechaCreacion-${grupoId}-${index}">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <label class="form-label mb-0" style="font-size: 0.875rem; font-weight: 600; color: var(--ms-gray-700);"><i class="bi bi-calendar-check me-1"></i> Fecha de Creación</label>
+                                        <small class="text-muted" style="font-size: 0.7rem; font-weight: 500;">${registro.sistema}</small>
+                                    </div>
+                                    <input type="text" class="form-control" value="${registro.fechaCreacion || 'N/A'}" readonly style="font-size: 0.875rem; padding: 0.625rem; border-radius: 4px; background-color: #f8f9fa;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                        container.innerHTML += registroHTML;
+                    });
+
+                    // Agregar indicadores visuales de diferencias después de cargar todos los registros
+                    setTimeout(() => {
+                        agregarIndicadoresDiferencias(grupo.registros, grupoId);
+                        // Actualizar el estilo del panel seleccionado como fuente de verdad
+                        actualizarEstiloFuenteVerdad(grupoId);
+                    }, 300);
+
+                    // Verificar si es falso positivo
+                    if (esFalsoPositivo(grupoId, grupo.registros)) {
+                        alert('Este grupo ha sido marcado previamente como Falso Positivo y no debería aparecer. Por favor, contacte al administrador.');
+                        return;
+                    }
+
+                    // Verificar indicadores de riesgo (solo para bloquear si es necesario)
+                    const verificacionRiesgo = verificarIndicadoresRiesgo(grupo.registros);
+                    const btnConfirmarFusion = document.getElementById('btnConfirmarFusion');
+
+                    if (btnConfirmarFusion && verificacionRiesgo.bloqueado) {
+                        btnConfirmarFusion.disabled = true;
+                    }
+
+                    // Mostrar secciones adicionales (ahora están en tabs)
+                    const auditTrailSection = document.getElementById('auditTrailSection');
+                    const selectorSection = document.getElementById('selectorCamposSection');
+                    const vistaPreviaSection = document.getElementById('vistaPreviaSection');
+
+                    if (auditTrailSection) auditTrailSection.style.display = 'block';
+                    if (selectorSection) selectorSection.style.display = 'block';
+                    if (vistaPreviaSection) vistaPreviaSection.style.display = 'block';
+
+                    // Configurar auditoría
+                    configurarAuditoria(grupo, nombreEnte);
+
+                    // Generar selector de campos por fuente
+                    generarSelectorCampos(grupo.registros, grupoId);
+
+                    // Mostrar y actualizar vista previa del registro final
+                    setTimeout(() => {
+                        actualizarVistaPrevia(grupo.registros, grupoId);
+                    }, 400);
+
+                    // Actualizar similitud promedio
+                    const similitudBadge = document.getElementById('similitudBadge');
+                    if (similitudBadge) {
+                        similitudBadge.textContent = grupo.similitudPromedio + '%';
+                    }
+
+                    // Actualizar análisis ML
+                    const aiInsight = document.getElementById('aiInsightText');
+                    if (aiInsight) {
+                        aiInsight.textContent =
+                            `El algoritmo de Machine Learning detectó ${grupo.registros.length} registros relacionados para "${nombreEnte}". ` +
+                            `Todos comparten el mismo celular y fecha de nacimiento, indicando alta probabilidad de ser la misma persona. ` +
+                            `Se recomienda unificar usando la fuente de verdad seleccionada.`;
+                    }
+
+                    // Abrir modal
+                    const modalElement = document.getElementById('revisarCasoModal');
+                    if (!modalElement) {
+                        alert('Error: No se encontró el modal');
+                        return;
+                    }
+                    const modal = new bootstrap.Modal(modalElement);
+                    modal.show();
+                } catch (error) {
+                    console.error('Error al abrir modal de grupo:', error);
+                    alert('Error al abrir el modal. Por favor, revise la consola para más detalles.');
+                }
+            }
+
+            // Función para aplicar fuente de verdad a todos los campos
+            function aplicarFuenteVerdad(grupoId, indiceRegistro) {
+                const campos = ['nombre', 'ruc', 'direccion', 'telefono', 'celular', 'fechaNac', 'fechaCreacion'];
+
+                campos.forEach(campo => {
+                    const selector = document.getElementById(`selector-${campo}-${grupoId}`);
+                    if (selector) {
+                        selector.value = indiceRegistro;
+                    }
+                });
+            }
+
+            // Función para actualizar el estilo del panel seleccionado como fuente de verdad
+            function actualizarEstiloFuenteVerdad(grupoId) {
+                const radios = document.querySelectorAll(`input[name="fuenteVerdadGrupo"]`);
+                radios.forEach((radio, index) => {
+                    const panel = document.getElementById(`registro-${grupoId}-${index}`);
+                    if (!panel) return;
+
+                    const card = panel.querySelector('.card');
+                    if (radio.checked) {
+                        card.style.border = '2px solid var(--ms-blue)';
+                        card.style.boxShadow = '0 4px 8px rgba(0, 120, 212, 0.3)';
+                        const header = card.querySelector('.card-header');
+                        if (header) {
+                            header.style.backgroundColor = '#e7f3ff';
+                            header.style.borderBottom = '2px solid var(--ms-blue)';
+                        }
+                    } else {
+                        card.style.border = '2px solid var(--ms-gray-30)';
+                        card.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
+                        const header = card.querySelector('.card-header');
+                        if (header) {
+                            header.style.backgroundColor = 'var(--ms-gray-20)';
+                            header.style.borderBottom = '2px solid var(--ms-gray-30)';
+                        }
+                    }
+                });
+            }
+
+            // Función para agregar indicadores visuales de diferencias
+            function agregarIndicadoresDiferencias(registros, grupoId) {
+                if (registros.length < 2) return;
+
+                // Comparar cada registro con la fuente maestra seleccionada
+                const fuenteMaestra = document.querySelector(`input[name="fuenteVerdadGrupo"]:checked`);
+                const indiceMaestra = fuenteMaestra ? parseInt(fuenteMaestra.value) : 0;
+                const registroMaestra = registros[indiceMaestra];
+
+                registros.forEach((registro, index) => {
+                    if (index === indiceMaestra) return; // No comparar consigo mismo
+
+                    const panelActual = document.getElementById(`registro-${grupoId}-${index}`);
+                    if (!panelActual) return;
+
+                    // Campos a comparar
+                    const campos = [
+                        { key: 'direccion', label: 'Dirección' },
+                        { key: 'telefono', label: 'Teléfono' },
+                        { key: 'celular', label: 'Celular' },
+                        { key: 'nombre', label: 'Nombre' },
+                        { key: 'ruc', label: 'RUC/ID' }
+                    ];
+
+                    campos.forEach(campo => {
+                        const valorMaestra = registroMaestra[campo.key] || '';
+                        const valorActual = registro[campo.key] || '';
+
+                        if (valorMaestra.trim() !== valorActual.trim() && valorMaestra.trim() !== '' && valorActual.trim() !== '') {
+                            const campoElement = document.getElementById(`campo-${campo.key}-${grupoId}-${index}`);
+                            if (campoElement) {
+                                // Agregar borde destacado y fondo amarillo
+                                const input = campoElement.querySelector('input');
+                                if (input) {
+                                    input.classList.add('campo-diferente');
+                                    input.style.border = '2px solid #ffc107';
+                                    input.style.backgroundColor = '#fff3cd';
+                                }
+                            }
+                        }
+                    });
+                });
+            }
+
+            // Función para eliminar un registro específico del grupo
+            function eliminarRegistroDelGrupo(grupoId, indiceRegistro, nombreSistema) {
+                if (confirm(`¿Está seguro que desea eliminar el registro de "${nombreSistema}" de este grupo?\n\nEste registro no corresponde al mismo ente y será removido del grupo.`)) {
+                    const grupo = gruposData[grupoId];
+                    if (!grupo || !grupo.registros) {
+                        alert('Error: Grupo no encontrado');
+                        return;
+                    }
+
+                    // Eliminar el registro del array
+                    grupo.registros.splice(indiceRegistro, 1);
+
+                    // Si no quedan registros, cerrar el modal y eliminar el grupo completo
+                    if (grupo.registros.length === 0) {
+                        alert('Se eliminaron todos los registros del grupo. El grupo será eliminado.');
+                        const modal = bootstrap.Modal.getInstance(document.getElementById('revisarCasoModal'));
+                        if (modal) modal.hide();
+                        eliminarGrupo(grupoId, grupo.nombre);
+                        return;
+                    }
+
+                    // Reabrir el modal con los datos actualizados
+                    const nombreEnte = grupo.nombre;
+                    const compania = grupo.compania;
+                    openModalGrupo(grupoId, nombreEnte, compania, grupo);
+                }
+            }
+
+            function openModal(id, nombreTabla, sistemaA, sistemaB, similitud, fecha, compania, nombreA, rucA, dirA, telA, celA, fechaNacA, nombreB, rucB, dirB, telB, celB, fechaNacB, aiInsight) {
+                // Guardar el ID del caso actual
+                casoActualId = id;
+
+                // Llenar campos del modal con datos del Registro A
+                document.getElementById('nombreA').value = nombreA;
+                document.getElementById('rucA').value = rucA;
+                document.getElementById('direccionA').value = dirA;
+                document.getElementById('telefonoA').value = telA;
+                document.getElementById('celularA').value = celA || '';
+                document.getElementById('fechaNacA').value = fechaNacA || '';
+
+                // Llenar campos del modal con datos del Registro B
+                document.getElementById('nombreB').value = nombreB;
+                document.getElementById('rucB').value = rucB;
+                document.getElementById('direccionB').value = dirB;
+                document.getElementById('telefonoB').value = telB;
+                document.getElementById('celularB').value = celB || '';
+                document.getElementById('fechaNacB').value = fechaNacB || '';
+
+                // Actualizar badge de similitud
+                document.getElementById('similitudBadge').textContent = similitud + '%';
+
+                // Actualizar insight de Machine Learning
+                document.getElementById('aiInsightText').textContent = aiInsight || 'Análisis no disponible.';
+
+                // Actualizar título del modal con el sistema origen
+                const sistemaAFormatted = sistemaA === 'Amadeus' ? '<span class="badge bg-info">Amadeus</span>' : '<span class="badge bg-primary">MNet</span>';
+                const sistemaBFormatted = sistemaB === 'Amadeus' ? '<span class="badge bg-info">Amadeus</span>' : '<span class="badge bg-primary">MNet</span>';
+
+                document.getElementById('revisarCasoModalLabel').innerHTML =
+                    `<i class="bi bi-file-earmark-check"></i> Revisión de Caso #${String(id).padStart(3, '0')} - ${nombreTabla} (${sistemaAFormatted} vs ${sistemaBFormatted})`;
+
+                // Actualizar títulos de las secciones con los nombres de los sistemas
+                const sectionTitleA = document.getElementById('sectionTitleA');
+                const sectionTitleB = document.getElementById('sectionTitleB');
+
+                if (sectionTitleA) {
+                    sectionTitleA.innerHTML = `<i class="bi bi-file-earmark-text"></i> Registro A (${sistemaA} - Sistemas Legales)`;
+                }
+                if (sectionTitleB) {
+                    sectionTitleB.innerHTML = `<i class="bi bi-file-earmark-spreadsheet"></i> Registro B (${sistemaB} - Sistemas Administrativos)`;
+                }
+
+                // Actualizar labels de radio buttons
+                const labelA = document.querySelector('label[for="fuenteVerdadA"]');
+                const labelB = document.querySelector('label[for="fuenteVerdadB"]');
+                if (labelA) labelA.textContent = `Fuente de Verdad (${sistemaA})`;
+                if (labelB) labelB.textContent = `Fuente de Verdad (${sistemaB})`;
+
+                // Resetear radio buttons
+                document.getElementById('fuenteVerdadA').checked = false;
+                document.getElementById('fuenteVerdadB').checked = false;
+
+                // Abrir modal
+                const modal = new bootstrap.Modal(document.getElementById('revisarCasoModal'));
+                modal.show();
+            }
+
+            // Cerrar modal al hacer clic fuera y limpiar backdrop
+            const revisarCasoModal = document.getElementById('revisarCasoModal');
+            if (revisarCasoModal) {
+                revisarCasoModal.addEventListener('hidden.bs.modal', function () {
+                    // Limpiar campos al cerrar
+                    const nombreA = document.getElementById('nombreA');
+                    const rucA = document.getElementById('rucA');
+                    const direccionA = document.getElementById('direccionA');
+                    const telefonoA = document.getElementById('telefonoA');
+                    const celularA = document.getElementById('celularA');
+                    const fechaNacA = document.getElementById('fechaNacA');
+                    const nombreB = document.getElementById('nombreB');
+                    const rucB = document.getElementById('rucB');
+                    const direccionB = document.getElementById('direccionB');
+                    const telefonoB = document.getElementById('telefonoB');
+                    const celularB = document.getElementById('celularB');
+                    const fechaNacB = document.getElementById('fechaNacB');
+                    const aiInsightText = document.getElementById('aiInsightText');
+
+                    if (nombreA) nombreA.value = '';
+                    if (rucA) rucA.value = '';
+                    if (direccionA) direccionA.value = '';
+                    if (telefonoA) telefonoA.value = '';
+                    if (celularA) celularA.value = '';
+                    if (fechaNacA) fechaNacA.value = '';
+                    if (nombreB) nombreB.value = '';
+                    if (rucB) rucB.value = '';
+                    if (direccionB) direccionB.value = '';
+                    if (telefonoB) telefonoB.value = '';
+                    if (celularB) celularB.value = '';
+                    if (fechaNacB) fechaNacB.value = '';
+                    if (aiInsightText) aiInsightText.textContent = 'Cargando análisis...';
+
+                    // Asegurar que se elimine el backdrop y se restaure el scroll
+                    setTimeout(() => {
+                        const backdrop = document.querySelector('.modal-backdrop');
+                        if (backdrop) {
+                            backdrop.remove();
+                        }
+                        document.body.style.overflow = '';
+                        document.body.style.paddingRight = '';
+                        document.body.classList.remove('modal-open');
+                    }, 100);
+                });
+            }
+        </script>
+</body>
+
+</html>
